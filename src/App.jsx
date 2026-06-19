@@ -6,6 +6,10 @@ function App() {
 
 const [ppcis, setPpcis] = useState([]);
 const [loading, setLoading] = useState(false);
+const [filtro, setFiltro] = useState("");
+const [filtroSituacao, setFiltroSituacao] = useState("");
+const [filtroStatus, setFiltroStatus] = useState("");
+const [filtroCategoria, setFiltroCategoria] = useState("");
 
 async function carregarDados() {
 
@@ -129,11 +133,103 @@ Object.entries(statusCount)
 (a, b) => b[1] - a[1]
 );
 
+const categorias = [
+  ...new Set(
+    ppcis
+      .map(item => item.Categoria)
+      .filter(Boolean)
+  )
+].sort();
+
 const ppcisOrdenados = [...ppcis].sort(
   (a, b) =>
     Number(a.Prioridade || 999) -
     Number(b.Prioridade || 999)
 );
+
+  const totalPPCIs = ppcis.length;
+
+  const vencidos = ppcis.filter((item) => {
+    const dias = obterDiasParaVencer(
+      item["Data limite / vencimento PPCI"]
+    );
+    return dias < 0;
+  }).length;
+
+  const criticos = ppcis.filter((item) => {
+    const dias = obterDiasParaVencer(
+      item["Data limite / vencimento PPCI"]
+    );
+    return dias >= 0 && dias <= 60;
+  }).length;
+
+  const emAnaliseCBMRS = ppcis.filter(
+    (item) =>
+      item["Status / Situação"] ===
+      "Em análise no CBM-RS"
+  ).length;
+
+  const regulares =
+  totalPPCIs -
+  vencidos -
+  criticos;
+
+const ppcisFiltrados = ppcisOrdenados.filter(
+  (item) => {
+
+    const dias =
+      obterDiasParaVencer(
+        item["Data limite / vencimento PPCI"]
+      ) ?? 9999;
+
+    const textoBusca = `
+      ${item.ID || ""}
+      ${item.Unidade || ""}
+      ${item["Prédio / Edificação"] || ""}
+      ${item.Responsável || ""}
+      ${item.Solicitante || ""}
+      ${item["Número do PPCI / Processo CBMRS"] || ""}
+      ${item["Status / Situação"] || ""}
+      ${item["Providência / Próximo passo"] || ""}
+    `.toLowerCase();
+
+    if (filtroSituacao === "vencidos" && dias >= 0)
+      return false;
+
+    if (filtroSituacao === "criticos" &&
+        !(dias >= 0 && dias <= 60))
+      return false;
+
+    if (filtroSituacao === "regulares" &&
+        dias <= 180)
+      return false;
+
+    if (
+  filtroStatus &&
+  item["Status / Situação"] !== filtroStatus
+)
+  return false;
+
+if (
+  filtroCategoria &&
+  item.Categoria !== filtroCategoria
+)
+  return false;
+
+    return textoBusca.includes(
+      filtro.toLowerCase()
+    );
+
+  }
+);
+
+  function limparFiltros() {
+
+    setFiltro("");
+    setFiltroStatus("");
+    setFiltroSituacao("");
+    setFiltroCategoria("");
+  }
 
 return (
 
@@ -153,22 +249,37 @@ return (
         marginBottom: 0
       }}
     >
-      {ppcis.length}
-      {" "}
-      PPCIs Monitorados
+      {ppcisFiltrados.length} PPCIs Monitorados
     </h2>
 
   </div>
+
+<div className="secao-painel">
+
+  <h3 className="secao-titulo">
+    STATUS DOS PPCIs
+  </h3>
 
   <div className="kpis">
 
     {statusOrdenados.map(
       ([status, quantidade]) => (
 
-        <div
-          key={status}
-          className="kpi-card"
-        >
+      <div
+        key={status}
+        className={`kpi-card ${
+          filtroStatus === status
+            ? "kpi-ativo"
+            : ""
+        }`}
+        onClick={() =>
+          setFiltroStatus(
+            filtroStatus === status
+              ? ""
+              : status
+          )
+        }
+      >
 
           <div className="kpi-number">
             {quantidade}
@@ -184,6 +295,82 @@ return (
     )}
 
   </div>
+
+</div>
+
+<div className="secao-painel">
+
+  <h3 className="secao-titulo">
+    SITUAÇÃO GERAL
+  </h3>
+
+<div className="kpis-gerenciais">
+
+  <div
+    className={`kpi-card ${
+      filtroSituacao === "vencidos"
+        ? "kpi-ativo"
+        : ""
+    }`}
+    onClick={() =>
+      setFiltroSituacao(
+        filtroSituacao === "vencidos"
+          ? ""
+          : "vencidos"
+      )
+    }
+  >
+    <div className="kpi-number">
+      {vencidos}
+    </div>
+    <div>Vencidos</div>
+  </div>
+
+  <div
+    className={`kpi-card ${
+      filtroSituacao === "criticos"
+        ? "kpi-ativo"
+        : ""
+    }`}
+    onClick={() =>
+      setFiltroSituacao(
+        filtroSituacao === "criticos"
+          ? ""
+          : "criticos"
+      )
+    }
+  >
+    <div className="kpi-number">
+      {criticos}
+    </div>
+    <div>Críticos</div>
+  </div>
+
+  <div
+    className={`kpi-card ${
+      filtroSituacao === "regulares"
+        ? "kpi-ativo"
+        : ""
+    }`}
+    onClick={() =>
+      setFiltroSituacao(
+        filtroSituacao === "regulares"
+          ? ""
+          : "regulares"
+      )
+    }
+  >
+    <div className="kpi-number">
+      {regulares}
+    </div>
+    <div>Regulares</div>
+  </div>
+  </div>
+</div>
+
+<h3 className="secao-titulo">
+  FILTROS E CONTROLES
+</h3>
 
   <div
     style={{
@@ -220,11 +407,84 @@ return (
       Editar Planilha
     </a>
 
+    <button
+     className="clear-button"
+     onClick={limparFiltros}
+    >
+      Limpar Filtros
+    </button>
+
   </div>
+
+  <div className="filtro-container">
+
+    {(
+    filtroStatus ||
+    filtroSituacao ||
+    filtroCategoria
+  ) && (
+  <div className="filtros-ativos">
+
+    {filtroStatus && (
+      <span className="tag-filtro">
+        Status: {filtroStatus}
+      </span>
+    )}
+
+    {filtroSituacao && (
+      <span className="tag-filtro">
+        Situação: {filtroSituacao}
+      </span>
+    )}
+
+    {filtroCategoria && (
+      <span className="tag-filtro">
+        Categoria: {filtroCategoria}
+       </span>
+    )}
+
+  </div>
+
+  )}
+  
+    <input
+      type="text"
+      placeholder="🔍 Buscar PPCI, prédio, responsável, processo..."
+      value={filtro}
+      onChange={(e) => setFiltro(e.target.value)}
+      className="campo-busca"
+    />
+
+    <select
+  value={filtroCategoria}
+  onChange={(e) =>
+    setFiltroCategoria(e.target.value)
+  }
+  className="campo-categoria"
+>
+  <option value="">
+    Todas as Categorias
+  </option>
+
+  {categorias.map((categoria) => (
+    <option
+      key={categoria}
+      value={categoria}
+    >
+      {categoria}
+    </option>
+  ))}
+</select>
+
+  </div>
+
+<h3 className="secao-titulo">
+  PPCIs MONITORADOS
+</h3>
 
   <div className="cards-grid">
 
-    {ppcisOrdenados.map((item) => {
+    {ppcisFiltrados.map((item) => {
 
       const dias =
         obterDiasParaVencer(
