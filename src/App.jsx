@@ -10,16 +10,19 @@ const [filtro, setFiltro] = useState("");
 const [filtroSituacao, setFiltroSituacao] = useState("");
 const [filtroStatus, setFiltroStatus] = useState("");
 const [filtroCategoria, setFiltroCategoria] = useState("");
+const [ordenacao, setOrdenacao] = useState("prioridade");
+const [ultimaAtualizacao, setUltimaAtualizacao] = useState("");
 
 async function carregarDados() {
 
 try {
 
   setLoading(true);
-
   const dados = await getPPCIs();
-
-  setPpcis(dados);
+    setPpcis(dados);
+    setUltimaAtualizacao(
+    new Date().toLocaleString("pt-BR")
+);
 
 } catch (erro) {
 
@@ -141,11 +144,55 @@ const categorias = [
   )
 ].sort();
 
-const ppcisOrdenados = [...ppcis].sort(
-  (a, b) =>
-    Number(a.Prioridade || 999) -
-    Number(b.Prioridade || 999)
-);
+  const ppcisOrdenados = [...ppcis].sort(
+    (a, b) => {
+
+      if (ordenacao === "prioridade") {
+
+        return (
+          Number(a.Prioridade || 999) -
+          Number(b.Prioridade || 999)
+        );
+
+      }
+
+      if (ordenacao === "vencimento") {
+
+        return (
+          new Date(
+            a["Data limite / vencimento PPCI"]
+          ) -
+          new Date(
+            b["Data limite / vencimento PPCI"]
+          )
+        );
+
+      }
+
+      if (ordenacao === "predio") {
+
+        return (
+          a["Prédio / Edificação"] || ""
+        ).localeCompare(
+          b["Prédio / Edificação"] || ""
+        );
+
+      }
+
+      if (ordenacao === "responsavel") {
+
+        return (
+          a.Responsável || ""
+        ).localeCompare(
+          b.Responsável || ""
+        );
+
+      }
+
+      return 0;
+
+    }
+  );
 
   const totalPPCIs = ppcis.length;
 
@@ -223,42 +270,130 @@ if (
   }
 );
 
+  function exportarCSV() {
+
+    const cabecalho = [
+      "ID",
+      "Categoria",
+      "Unidade",
+      "Prédio",
+      "Status",
+      "Responsável",
+      "Solicitante",
+      "Entrada",
+      "Vencimento",
+      "Prioridade"
+    ];
+
+    const linhas = ppcisFiltrados.map(item => [
+
+      item.ID,
+
+      item.Categoria,
+
+      item.Unidade,
+
+      item["Prédio / Edificação"],
+
+      item["Status / Situação"],
+
+      item.Responsável,
+
+      item.Solicitante,
+
+      item["Data de entrada"],
+
+      item["Data limite / vencimento PPCI"],
+
+      item.Prioridade
+
+    ]);
+
+    const csv = [
+
+      cabecalho.join(";"),
+
+      ...linhas.map(
+        linha => linha.join(";")
+      )
+
+    ].join("\n");
+
+    const blob = new Blob(
+      [csv],
+      {
+        type:
+        "text/csv;charset=utf-8;"
+      }
+    );
+
+    const link =
+      document.createElement("a");
+
+    link.href =
+      URL.createObjectURL(blob);
+
+    link.download =
+      "PPCIs_Filtrados.csv";
+
+    link.click();
+
+  }
+
   function limparFiltros() {
 
     setFiltro("");
     setFiltroStatus("");
     setFiltroSituacao("");
     setFiltroCategoria("");
+
+    setOrdenacao("prioridade");
   }
 
 return (
 
 <div className="container">
 
-  <div className="header">
+<div className="header">
 
-    <h1>Painel PPCI</h1>
+  <h1>Painel PPCI</h1>
 
-    <p>
-      Infraestrutura ULBRA
-    </p>
+  <p>
+    Infraestrutura ULBRA
+  </p>
 
-    <h2
-      style={{
-        marginTop: "12px",
-        marginBottom: 0
-      }}
-    >
-      {ppcisFiltrados.length} PPCIs Monitorados
-    </h2>
+  <h2
+    style={{
+      marginTop: "12px",
+      marginBottom: "4px"
+    }}
+  >
+    {ppcis.length} PPCIs Monitorados
+  </h2>
 
-  </div>
+  <p
+    style={{
+      margin: 0,
+      fontSize: "14px",
+      opacity: 0.9
+    }}
+  >
+    Exibindo {ppcisFiltrados.length} de {ppcis.length} PPCIs
+  </p>
+
+</div>
 
 <div className="secao-painel">
 
   <h3 className="secao-titulo">
     STATUS DOS PPCIs
   </h3>
+  
+  <div className="ultima-atualizacao">
+    Última atualização:
+    {" "}
+    {ultimaAtualizacao}
+  </div>
 
   <div className="kpis">
 
@@ -414,15 +549,21 @@ return (
       Limpar Filtros
     </button>
 
-  </div>
+    <button
+      className="export-button"
+     onClick={exportarCSV}
+    >
+      Exportar CSV
+    </button>
 
-  <div className="filtro-container">
+  </div>
 
     {(
     filtroStatus ||
     filtroSituacao ||
     filtroCategoria
   ) && (
+  
   <div className="filtros-ativos">
 
     {filtroStatus && (
@@ -446,16 +587,32 @@ return (
   </div>
 
   )}
-  
-    <input
-      type="text"
-      placeholder="🔍 Buscar PPCI, prédio, responsável, processo..."
-      value={filtro}
-      onChange={(e) => setFiltro(e.target.value)}
-      className="campo-busca"
-    />
 
-    <select
+ <div className="filtro-container">
+
+  <div className="grupo-filtro">
+
+<label className="filtro-label">
+  🔎 Busca
+</label>
+
+<input
+  type="text"
+  placeholder="Buscar PPCI, prédio, responsável, processo..."
+  value={filtro}
+  onChange={(e) => setFiltro(e.target.value)}
+  className="campo-busca"
+/>
+
+  </div>
+
+  <div className="grupo-filtro">
+
+<label className="filtro-label">
+  📂 Categoria
+</label>
+
+<select
   value={filtroCategoria}
   onChange={(e) =>
     setFiltroCategoria(e.target.value)
@@ -477,6 +634,41 @@ return (
 </select>
 
   </div>
+
+  <div className="grupo-filtro">
+
+<label className="filtro-label">
+  ⇅ Ordenar por
+</label>
+
+<select
+  value={ordenacao}
+  onChange={(e) =>
+    setOrdenacao(e.target.value)
+  }
+  className="campo-categoria"
+>
+  <option value="prioridade">
+    Prioridade
+  </option>
+
+  <option value="vencimento">
+    Vencimento
+  </option>
+
+  <option value="predio">
+    Prédio
+  </option>
+
+  <option value="responsavel">
+    Responsável
+  </option>
+</select>
+
+  </div>
+
+</div>
+
 
 <h3 className="secao-titulo">
   PPCIs MONITORADOS
