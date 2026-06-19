@@ -520,12 +520,18 @@ return (
 
   <div className="progress-bar-geral">
 
-    <div
-      className="progress-fill-geral"
-      style={{
-        width: `${mediaConclusao}%`
-      }}
-    />
+  <div
+    className="progress-fill-geral"
+    style={{
+      width: `${mediaConclusao}%`,
+      background:
+        mediaConclusao < 40
+          ? "#d32f2f"
+          : mediaConclusao < 70
+          ? "#f9a825"
+          : "#2e7d32"
+    }}
+  />
 
   </div>
 
