@@ -215,6 +215,18 @@ const categorias = [
   vencidos -
   criticos;
 
+  const mediaConclusao = totalPPCIs > 0
+  ? Math.round(
+      ppcis.reduce(
+        (acc, item) =>
+          acc + (item["% Conclusão"] || 0),
+        0
+      ) /
+      totalPPCIs *
+      100
+    )
+  : 0;  
+
 const ppcisFiltrados = ppcisOrdenados.filter(
   (item) => {
 
@@ -374,8 +386,15 @@ return (
   >
     Exibindo {ppcisFiltrados.length} de {ppcis.length} PPCIs
   </p>
+  <div className="ultima-atualizacao">
+    Última atualização:
+    {" "}
+    {ultimaAtualizacao}
+  </div>
 
 </div>
+
+
 
 <div className="secao-painel">
 
@@ -383,11 +402,7 @@ return (
     STATUS DOS PPCIs
   </h3>
   
-  <div className="ultima-atualizacao">
-    Última atualização:
-    {" "}
-    {ultimaAtualizacao}
-  </div>
+  
 
   <div className="kpis">
 
@@ -493,7 +508,31 @@ return (
       {regulares}
     </div>
     <div>Regulares</div>
+
   </div>
+  
+  </div>
+  <div className="resumo-conclusao">
+
+  <div className="resumo-titulo">
+    CONCLUSÃO MÉDIA GERAL
+  </div>
+
+  <div className="progress-bar-geral">
+
+    <div
+      className="progress-fill-geral"
+      style={{
+        width: `${mediaConclusao}%`
+      }}
+    />
+
+  </div>
+
+  <div className="resumo-percentual">
+    {mediaConclusao}%
+  </div>
+
   </div>
 </div>
 

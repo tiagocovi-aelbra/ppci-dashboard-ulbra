@@ -35,10 +35,11 @@ body {
 }
 
 .ultima-atualizacao {
-  font-size: 13px;
-  color: #666;
+  font-size: 16px;
+  color: #1d1d1d;
   margin-bottom: 12px;
   font-style: italic;
+  font-weight: bold;
 }
 
 .kpis {
@@ -336,7 +337,7 @@ flex-wrap: wrap;
 }
 
 .campo-busca {
-  width: 400px;
+  width: 500px;
   max-width: 600px;
 }
 
@@ -368,7 +369,7 @@ flex-wrap: wrap;
 }
 
 .clear-button {
-  background: #ff0000;
+  background: #6c757d;
   color: white;
   border: none;
   padding: 12px 24px;
@@ -379,7 +380,7 @@ flex-wrap: wrap;
 }
 
 .clear-button:hover {
-  background: #e8e8e8;
+  background: #5a6268;
 }
 
 .clear-button:hover {
@@ -414,9 +415,45 @@ flex-wrap: wrap;
 }
 
 .export-button:hover {
-
   opacity: 0.9;
+}
 
+.resumo-conclusao {
+  background: white;
+  border-radius: 14px;
+  padding: 18px;
+  margin-top: 14px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.resumo-titulo {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #2f4f46;
+  margin-bottom: 10px;
+}
+
+.progress-bar-geral {
+  width: 100%;
+  height: 22px;
+  background: #e5e5e5;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-fill-geral {
+  height: 100%;
+  background: #005f5b;
+  transition: width 0.4s ease;
+}
+
+.resumo-percentual {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #005f5b;
 }
 
 /* ========================= */
