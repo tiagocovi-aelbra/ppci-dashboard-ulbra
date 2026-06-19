@@ -210,12 +210,6 @@ const categorias = [
     return dias >= 0 && dias <= 60;
   }).length;
 
-  const emAnaliseCBMRS = ppcis.filter(
-    (item) =>
-      item["Status / Situação"] ===
-      "Em análise no CBM-RS"
-  ).length;
-
   const regulares =
   totalPPCIs -
   vencidos -
@@ -368,7 +362,7 @@ return (
       marginBottom: "4px"
     }}
   >
-    {ppcis.length} PPCIs Monitorados
+    {ppcisFiltrados.length} PPCIs Monitorados
   </h2>
 
   <p
