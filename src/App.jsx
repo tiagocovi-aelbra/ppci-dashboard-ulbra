@@ -12,6 +12,9 @@ const [filtroStatus, setFiltroStatus] = useState("");
 const [filtroCategoria, setFiltroCategoria] = useState("");
 const [ordenacao, setOrdenacao] = useState("prioridade");
 const [ultimaAtualizacao, setUltimaAtualizacao] = useState("");
+const [ppciSelecionado, setPpciSelecionado] = useState(null);
+const [mostrarAnalise, setMostrarAnalise] = useState(false);
+const [mostrarResponsabilidades, setMostrarResponsabilidades] = useState(false);
 
 async function carregarDados() {
 
@@ -132,6 +135,63 @@ statusCount[status] =
 
 const statusOrdenados =
 Object.entries(statusCount)
+.sort(
+(a, b) => b[1] - a[1]
+);
+
+const categoriaCount = {};
+
+ppcis.forEach((item) => {
+
+  const categoria =
+    item.Categoria?.trim() ||
+    "Sem Categoria";
+
+  categoriaCount[categoria] =
+    (categoriaCount[categoria] || 0) + 1;
+
+});
+
+const categoriasOrdenadas =
+Object.entries(categoriaCount)
+.sort(
+(a, b) => b[1] - a[1]
+);
+
+const responsavelCount = {};
+
+ppcis.forEach((item) => {
+
+  const responsavel =
+    item.Responsável?.trim() ||
+    "Sem Responsável";
+
+  responsavelCount[responsavel] =
+    (responsavelCount[responsavel] || 0) + 1;
+
+});
+
+const responsaveisOrdenados =
+Object.entries(responsavelCount)
+.sort(
+(a, b) => b[1] - a[1]
+);
+
+const unidadeCount = {};
+
+ppcis.forEach((item) => {
+
+  const unidade =
+    item.Unidade?.trim() ||
+    "Sem Unidade";
+
+  unidadeCount[unidade] =
+    (unidadeCount[unidade] || 0) + 1;
+
+});
+
+const unidadesOrdenadas =
+Object.entries(unidadeCount)
 .sort(
 (a, b) => b[1] - a[1]
 );
@@ -394,11 +454,174 @@ return (
 
 </div>
 
-
-
 <div className="secao-painel">
 
-  <h3 className="secao-titulo">
+  <h3
+  className="secao-titulo titulo-expansivel"
+  onClick={() =>
+    setMostrarAnalise(
+      !mostrarAnalise
+    )
+  }
+>
+  <span className="icone-expansivel">
+    {mostrarAnalise ? "▼" : "▶"}
+  </span>
+
+  <span>
+    ANÁLISE DA CARTEIRA PPCI
+  </span>
+
+</h3>
+
+{mostrarAnalise && (
+
+  <div className="graficos-grid">
+
+    <div className="grafico-card">
+
+      <h4>Status dos PPCIs</h4>
+
+      {statusOrdenados.map(
+        ([status, quantidade]) => (
+
+          <div
+            key={status}
+            className="grafico-item"
+          >
+
+            <span>{status}</span>
+
+            <strong>{quantidade}</strong>
+
+          </div>
+
+        )
+      )}
+
+    </div>
+
+    <div className="grafico-card">
+
+      <h4>Categorias</h4>
+
+      {categoriasOrdenadas.map(
+        ([categoria, quantidade]) => (
+
+          <div
+            key={categoria}
+            className="grafico-item"
+          >
+
+            <span>{categoria}</span>
+
+            <strong>{quantidade}</strong>
+
+          </div>
+
+        )
+      )}
+
+    </div>
+
+  </div>
+
+  )}
+
+  <div className="secao-painel">
+
+    <h3
+    className="secao-titulo titulo-expansivel"
+    onClick={() =>
+    setMostrarResponsabilidades(
+      !mostrarResponsabilidades
+    )
+  }
+>
+  <span className="icone-expansivel">
+    {mostrarResponsabilidades
+      ? "▼"
+      : "▶"}
+  </span>
+
+  <span>
+    DISTRIBUIÇÃO DAS RESPONSABILIDADES
+  </span>
+
+</h3>
+
+  {mostrarResponsabilidades && (
+
+    <div className="graficos-grid">
+
+      <div className="grafico-card">
+
+        <h4>
+          Responsáveis
+        </h4>
+
+        {
+          responsaveisOrdenados.map(
+            ([responsavel, quantidade]) => (
+
+              <div
+                key={responsavel}
+                className="grafico-item"
+              >
+
+                <span>
+                  {responsavel}
+                </span>
+
+                <strong>
+                  {quantidade}
+                </strong>
+
+              </div>
+
+            )
+          )
+        }
+
+      </div>
+
+      <div className="grafico-card">
+
+        <h4>
+          Unidades
+        </h4>
+
+        {
+          unidadesOrdenadas.map(
+            ([unidade, quantidade]) => (
+
+              <div
+                key={unidade}
+                className="grafico-item"
+              >
+
+                <span>
+                  {unidade}
+                </span>
+
+                <strong>
+                  {quantidade}
+                </strong>
+
+              </div>
+
+            )
+          )
+        }
+
+      </div>
+
+    </div>
+  )}
+  </div>
+
+
+    <h3 className="secao-titulo">
     STATUS DOS PPCIs
   </h3>
   
@@ -729,6 +952,8 @@ return (
           className={`ppci-card ${obterClasseVencimento(
             item["Data limite / vencimento PPCI"]
           )}`}
+          onClick={() => setPpciSelecionado(item)}
+          style={{ cursor: "pointer" }}
         >
 
         <div className="card-header">
@@ -895,7 +1120,231 @@ return (
     })}
 
   </div>
+{ppciSelecionado && (
 
+<div
+  className="modal-overlay"
+  onClick={() => setPpciSelecionado(null)}
+>
+
+<div
+  className="modal-content"
+  onClick={(e) => e.stopPropagation()}
+>
+
+<button
+  className="modal-close"
+  onClick={() => setPpciSelecionado(null)}
+>
+  ✕
+</button>
+
+<h2>
+  {ppciSelecionado.ID}
+</h2>
+
+<h3>
+  {ppciSelecionado["Prédio / Edificação"]}
+</h3>
+
+<div className="modal-grid">
+
+  <div>
+    <strong>Categoria</strong>
+    <br />
+    {ppciSelecionado.Categoria}
+  </div>
+
+  <div>
+    <strong>Status</strong>
+    <br />
+    {ppciSelecionado["Status / Situação"]}
+  </div>
+
+  <div>
+    <strong>Prioridade</strong>
+    <br />
+    {ppciSelecionado.Prioridade}
+  </div>
+
+  <div>
+    <strong>Unidade</strong>
+    <br />
+    {ppciSelecionado.Unidade}
+  </div>
+
+  <div>
+    <strong>Responsável</strong>
+    <br />
+    {ppciSelecionado.Responsável}
+  </div>
+
+  <div>
+    <strong>Solicitante</strong>
+    <br />
+    {ppciSelecionado.Solicitante}
+  </div>
+
+</div>
+<div className="modal-secao">
+
+<h4>
+PROCESSO PPCI
+</h4>
+
+<div className="modal-grid">
+
+<div>
+<strong>Número Processo</strong>
+<br />
+{
+ppciSelecionado[
+"Número do PPCI / Processo CBMRS"
+]
+}
+</div>
+
+<div>
+<strong>Data Entrada</strong>
+<br />
+{
+formatarData(
+ppciSelecionado[
+"Data de entrada"
+]
+)
+}
+</div>
+
+<div>
+<strong>Início Projeto</strong>
+<br />
+{
+formatarData(
+ppciSelecionado[
+"Data de início Obra/Projeto"
+]
+)
+}
+</div>
+
+<div>
+<strong>Previsão Entrega</strong>
+<br />
+{
+formatarData(
+ppciSelecionado[
+"Data prevista entrega Obra/Projeto"
+]
+)
+}
+</div>
+
+<div>
+<strong>Vencimento PPCI</strong>
+<br />
+{
+formatarData(
+ppciSelecionado[
+"Data limite / vencimento PPCI"
+]
+)
+}
+</div>
+
+</div>
+
+</div>
+<div className="modal-secao">
+
+<h4>
+ANDAMENTO
+</h4>
+
+<div
+className="progress-bar"
+style={{
+marginBottom: "15px"
+}}
+>
+
+<div
+className="progress-fill"
+style={{
+width: `${Math.round(
+(
+ppciSelecionado[
+"% Conclusão"
+] ?? 0
+) * 100
+)}%`
+}}
+/>
+
+</div>
+
+<strong>
+Conclusão:
+</strong>
+
+{" "}
+
+{Math.round(
+(
+ppciSelecionado[
+"% Conclusão"
+] ?? 0
+) * 100
+)}%
+
+</div>
+<div className="modal-secao">
+
+<h4>
+DESCRIÇÃO / ITENS
+</h4>
+
+<p>
+{
+ppciSelecionado[
+"Descrição / Itens"
+]
+}
+</p>
+
+</div>
+<div className="modal-secao">
+
+<h4>
+PRÓXIMO PASSO
+</h4>
+
+<p>
+{
+ppciSelecionado[
+"Providência / Próximo passo"
+]
+}
+</p>
+
+</div>
+<div className="modal-secao">
+
+<h4>
+OBSERVAÇÕES
+</h4>
+
+<p>
+{ppciSelecionado.Observações}
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+)}
 </div>
 
 );
