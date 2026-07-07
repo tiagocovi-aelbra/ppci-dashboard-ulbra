@@ -1,0 +1,90 @@
+ O volume na unidade C ‚ Sistema
+ O N£mero de S‚rie do Volume ‚ 429D-4B29
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\components
+
+03/07/2026  16:55    <DIR>          .
+02/07/2026  15:33    <DIR>          ..
+01/07/2026  17:58    <DIR>          Analises
+01/07/2026  17:15    <DIR>          Cards
+01/07/2026  17:12    <DIR>          Dashboard
+03/07/2026  16:55                 0 dir.txt
+01/07/2026  16:45    <DIR>          Header
+02/07/2026  14:41    <DIR>          Modal
+01/07/2026  17:08    <DIR>          Toolbar
+               1 arquivo(s)              0 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\components\Analises
+
+01/07/2026  17:58    <DIR>          .
+03/07/2026  16:55    <DIR>          ..
+02/07/2026  09:54             2.452 AnaliseCarteira.jsx
+02/07/2026  12:04             2.812 DistribuicaoResponsabilidades.jsx
+01/07/2026  16:36               219 index.js
+02/07/2026  13:27             1.361 PainelAnalises.jsx
+               4 arquivo(s)          6.844 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\components\Cards
+
+01/07/2026  17:15    <DIR>          .
+03/07/2026  16:55    <DIR>          ..
+01/07/2026  17:15             3.712 CardPPCI.jsx
+01/07/2026  17:13             1.524 CardsPPCI.jsx
+               2 arquivo(s)          5.236 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\components\Dashboard
+
+01/07/2026  17:12    <DIR>          .
+03/07/2026  16:55    <DIR>          ..
+30/06/2026  12:35             1.558 ConclusaoMedia.jsx
+02/07/2026  11:51             4.587 DashboardExecutivo.jsx
+30/06/2026  12:32             3.058 SituacaoDashboard.jsx
+30/06/2026  12:27             2.432 StatusDashboard.jsx
+01/07/2026  15:16             1.425 useDashboardData.js
+               5 arquivo(s)         13.060 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\components\Header
+
+01/07/2026  16:45    <DIR>          .
+03/07/2026  16:55    <DIR>          ..
+01/07/2026  16:41             1.267 Header.jsx
+01/07/2026  16:45                35 index.js
+               2 arquivo(s)          1.302 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\components\Modal
+
+02/07/2026  14:41    <DIR>          .
+03/07/2026  16:55    <DIR>          ..
+02/07/2026  14:36               798 ModalFooter.jsx
+02/07/2026  14:29             2.585 ModalHeader.jsx
+01/07/2026  17:22             2.687 ModalPPCI.jsx
+02/07/2026  14:35             1.211 ModalTabs.jsx
+02/07/2026  14:56    <DIR>          tabs
+               4 arquivo(s)          7.281 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\components\Modal\tabs
+
+02/07/2026  14:56    <DIR>          .
+02/07/2026  14:41    <DIR>          ..
+02/07/2026  14:47             1.990 AbaCronograma.jsx
+02/07/2026  14:55             2.103 AbaDocumentos.jsx
+02/07/2026  14:42             2.857 AbaGeral.jsx
+02/07/2026  14:56               694 AbaHistorico.jsx
+02/07/2026  14:45             1.883 AbaProcesso.jsx
+               5 arquivo(s)          9.527 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\components\Toolbar
+
+01/07/2026  17:08    <DIR>          .
+03/07/2026  16:55    <DIR>          ..
+01/07/2026  17:07             1.111 Acoes.jsx
+01/07/2026  17:01               783 Busca.jsx
+01/07/2026  17:05             1.065 Categoria.jsx
+01/07/2026  17:08               436 index.js
+01/07/2026  17:06               870 Ordenacao.jsx
+01/07/2026  16:58             1.325 Toolbar.jsx
+               6 arquivo(s)          5.590 bytes
+
+     Total de Arquivos na Lista:
+              29 arquivo(s)         48.840 bytes
+              23 pasta(s)   713.974.038.528 bytes dispon¡veis

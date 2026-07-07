@@ -1,0 +1,157 @@
+ O volume na unidade C ‚ Sistema
+ O N£mero de S‚rie do Volume ‚ 429D-4B29
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src
+
+03/07/2026  16:56    <DIR>          .
+01/07/2026  16:04    <DIR>          ..
+30/06/2026  13:46            13.110 App.css
+02/07/2026  13:33             7.641 App.jsx
+15/06/2026  09:29    <DIR>          assets
+02/07/2026  13:58               401 CHANGELOG.md
+02/07/2026  13:58               426 CHECKLIST.md
+03/07/2026  16:55    <DIR>          components
+03/07/2026  16:56                 0 dir.txt
+03/07/2026  09:01    <DIR>          domain
+01/07/2026  17:20    <DIR>          hooks
+12/06/2026  14:09             2.169 index.css
+12/06/2026  14:09               229 main.jsx
+02/07/2026  13:59               244 RELEASE_NOTES.md
+02/07/2026  08:04    <DIR>          services
+02/07/2026  15:04    <DIR>          utils
+               8 arquivo(s)         24.220 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\assets
+
+15/06/2026  09:29    <DIR>          .
+03/07/2026  16:56    <DIR>          ..
+12/06/2026  14:09            13.057 hero.png
+12/06/2026  14:09             4.126 react.svg
+12/06/2026  14:09             8.709 vite.svg
+               3 arquivo(s)         25.892 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\components
+
+03/07/2026  16:55    <DIR>          .
+03/07/2026  16:56    <DIR>          ..
+01/07/2026  17:58    <DIR>          Analises
+01/07/2026  17:15    <DIR>          Cards
+01/07/2026  17:12    <DIR>          Dashboard
+03/07/2026  16:55             3.653 dir.txt
+01/07/2026  16:45    <DIR>          Header
+02/07/2026  14:41    <DIR>          Modal
+01/07/2026  17:08    <DIR>          Toolbar
+               1 arquivo(s)          3.653 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\components\Analises
+
+01/07/2026  17:58    <DIR>          .
+03/07/2026  16:55    <DIR>          ..
+02/07/2026  09:54             2.452 AnaliseCarteira.jsx
+02/07/2026  12:04             2.812 DistribuicaoResponsabilidades.jsx
+01/07/2026  16:36               219 index.js
+02/07/2026  13:27             1.361 PainelAnalises.jsx
+               4 arquivo(s)          6.844 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\components\Cards
+
+01/07/2026  17:15    <DIR>          .
+03/07/2026  16:55    <DIR>          ..
+01/07/2026  17:15             3.712 CardPPCI.jsx
+01/07/2026  17:13             1.524 CardsPPCI.jsx
+               2 arquivo(s)          5.236 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\components\Dashboard
+
+01/07/2026  17:12    <DIR>          .
+03/07/2026  16:55    <DIR>          ..
+30/06/2026  12:35             1.558 ConclusaoMedia.jsx
+02/07/2026  11:51             4.587 DashboardExecutivo.jsx
+30/06/2026  12:32             3.058 SituacaoDashboard.jsx
+30/06/2026  12:27             2.432 StatusDashboard.jsx
+01/07/2026  15:16             1.425 useDashboardData.js
+               5 arquivo(s)         13.060 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\components\Header
+
+01/07/2026  16:45    <DIR>          .
+03/07/2026  16:55    <DIR>          ..
+01/07/2026  16:41             1.267 Header.jsx
+01/07/2026  16:45                35 index.js
+               2 arquivo(s)          1.302 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\components\Modal
+
+02/07/2026  14:41    <DIR>          .
+03/07/2026  16:55    <DIR>          ..
+02/07/2026  14:36               798 ModalFooter.jsx
+02/07/2026  14:29             2.585 ModalHeader.jsx
+01/07/2026  17:22             2.687 ModalPPCI.jsx
+02/07/2026  14:35             1.211 ModalTabs.jsx
+02/07/2026  14:56    <DIR>          tabs
+               4 arquivo(s)          7.281 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\components\Modal\tabs
+
+02/07/2026  14:56    <DIR>          .
+02/07/2026  14:41    <DIR>          ..
+02/07/2026  14:47             1.990 AbaCronograma.jsx
+02/07/2026  14:55             2.103 AbaDocumentos.jsx
+02/07/2026  14:42             2.857 AbaGeral.jsx
+02/07/2026  14:56               694 AbaHistorico.jsx
+02/07/2026  14:45             1.883 AbaProcesso.jsx
+               5 arquivo(s)          9.527 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\components\Toolbar
+
+01/07/2026  17:08    <DIR>          .
+03/07/2026  16:55    <DIR>          ..
+01/07/2026  17:07             1.111 Acoes.jsx
+01/07/2026  17:01               783 Busca.jsx
+01/07/2026  17:05             1.065 Categoria.jsx
+01/07/2026  17:08               436 index.js
+01/07/2026  17:06               870 Ordenacao.jsx
+01/07/2026  16:58             1.325 Toolbar.jsx
+               6 arquivo(s)          5.590 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\domain
+
+03/07/2026  09:01    <DIR>          .
+03/07/2026  16:56    <DIR>          ..
+02/07/2026  15:34               695 constants.js
+03/07/2026  09:01               192 index.js
+03/07/2026  08:58             1.217 mapPPCI.js
+03/07/2026  08:59               987 mapToSheet.js
+02/07/2026  15:34               558 schemaPPCI.js
+               5 arquivo(s)          3.649 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\hooks
+
+01/07/2026  17:20    <DIR>          .
+03/07/2026  16:56    <DIR>          ..
+01/07/2026  17:18             2.000 useDashboard.js
+02/07/2026  13:32               862 useFiltros.js
+30/06/2026  18:14             1.207 useOrdenacao.js
+02/07/2026  13:15             3.225 usePesquisa.js
+01/07/2026  17:20             1.187 usePPCI.js
+               5 arquivo(s)          8.481 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\services
+
+02/07/2026  08:04    <DIR>          .
+03/07/2026  16:56    <DIR>          ..
+01/07/2026  17:43               775 api.js
+02/07/2026  08:04             1.241 exportCSV.js
+               2 arquivo(s)          2.016 bytes
+
+ Pasta de C:\Painel_PPCI\ppci-dashboard_v1\src\utils
+
+02/07/2026  15:04    <DIR>          .
+03/07/2026  16:56    <DIR>          ..
+02/07/2026  15:04             2.396 mapPPCI.js
+02/07/2026  08:05             1.201 ppciUtils.js
+               2 arquivo(s)          3.597 bytes
+
+     Total de Arquivos na Lista:
+              54 arquivo(s)        120.348 bytes
+              41 pasta(s)   713.973.882.880 bytes dispon¡veis
