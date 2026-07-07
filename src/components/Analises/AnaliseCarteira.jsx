@@ -1,5 +1,5 @@
 /* =========================================================
-   RELEASE........: v1.0.3 RC1
+   RELEASE........: v1.1.0 RC1
    ARQUIVO........: src/components/Analises/AnaliseCarteira.jsx
 
    RESPONSABILIDADE:
@@ -15,6 +15,9 @@ export default function AnaliseCarteira({
 
   statusOrdenados = [],
   categoriasOrdenadas = [],
+
+  filtroStatus = "",
+  filtroCategoria = "",
 
   aplicarFiltroRapido,
 }) {
@@ -44,7 +47,10 @@ export default function AnaliseCarteira({
               <button
                 key={status}
                 type="button"
-                className="grafico-item"
+                className={`grafico-item ${
+                  filtroStatus === status ? "ativo" : ""
+                }`}
+                aria-pressed={filtroStatus === status}
                 onClick={() => {
                   if (aplicarFiltroRapido) {
                     aplicarFiltroRapido("status", status);
@@ -68,7 +74,10 @@ export default function AnaliseCarteira({
               <button
                 key={categoria}
                 type="button"
-                className="grafico-item"
+                className={`grafico-item ${
+                  filtroCategoria === categoria ? "ativo" : ""
+                }`}
+                aria-pressed={filtroCategoria === categoria}
                 onClick={() => {
                   if (aplicarFiltroRapido) {
                     aplicarFiltroRapido("categoria", categoria);

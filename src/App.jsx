@@ -1,7 +1,7 @@
 /* =====================================================
-   RELEASE........: v2.8.1 RC1
+   RELEASE........: v3.3.0 RC1
    ARQUIVO........: src/App.jsx
-   DESCRIÇÃO......: Componente principal do Painel PPCI com status analítico mantido na carteira e removido do dashboard inferior
+   DESCRIÇÃO......: Componente principal com cabeçalho resumido na listagem de PPCIs
 ===================================================== */
 
 /* =====================================================
@@ -45,6 +45,7 @@ import PainelFeedback from "./components/Feedback/PainelFeedback";
 import DashboardExecutivo from "./components/Dashboard/DashboardExecutivo";
 import PainelAnalises from "./components/Analises/PainelAnalises";
 import Toolbar from "./components/Toolbar/Toolbar";
+import FiltrosAtivos from "./components/FiltrosAtivos";
 import CardsPPCI from "./components/Cards/CardsPPCI";
 import ModalPPCI from "./components/Modal/ModalPPCI";
 
@@ -76,6 +77,14 @@ function App() {
     setFiltro,
     filtroSituacao,
     setFiltroSituacao,
+    filtroStatus,
+    setFiltroStatus,
+    filtroCategoria,
+    setFiltroCategoria,
+    filtroResponsavel,
+    setFiltroResponsavel,
+    filtroUnidade,
+    setFiltroUnidade,
     ordenacao,
     setOrdenacao,
     aplicarFiltro,
@@ -149,6 +158,10 @@ function App() {
             categoriasOrdenadas={categoriasOrdenadas}
             responsaveisOrdenados={responsaveisOrdenados}
             unidadesOrdenadas={unidadesOrdenadas}
+            filtroStatus={filtroStatus}
+            filtroCategoria={filtroCategoria}
+            filtroResponsavel={filtroResponsavel}
+            filtroUnidade={filtroUnidade}
             aplicarFiltroRapido={aplicarFiltro}
           />
 
@@ -173,8 +186,26 @@ function App() {
             onLimpar={limparTodosFiltros}
           />
 
+          <FiltrosAtivos
+            filtro={filtro}
+            filtroStatus={filtroStatus}
+            filtroSituacao={filtroSituacao}
+            filtroCategoria={filtroCategoria}
+            filtroResponsavel={filtroResponsavel}
+            filtroUnidade={filtroUnidade}
+            setFiltro={setFiltro}
+            setFiltroStatus={setFiltroStatus}
+            setFiltroSituacao={setFiltroSituacao}
+            setFiltroCategoria={setFiltroCategoria}
+            setFiltroResponsavel={setFiltroResponsavel}
+            setFiltroUnidade={setFiltroUnidade}
+            onLimpar={limparTodosFiltros}
+          />
+
           <CardsPPCI
             ppcis={ppcisFiltrados}
+            totalGeral={ppcis.length}
+            ordenacao={ordenacao}
             setPpciSelecionado={setPpciSelecionado}
             formatarData={formatarData}
             textoOuPadrao={textoOuPadrao}

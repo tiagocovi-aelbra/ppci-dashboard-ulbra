@@ -1,5 +1,5 @@
 /* =========================================================
-   RELEASE........: v1.0.3 RC1
+   RELEASE........: v1.1.0 RC1
    ARQUIVO........: src/components/Analises/PainelAnalises.jsx
 
    RESPONSABILIDADE:
@@ -24,6 +24,11 @@ export default function PainelAnalises({
   responsaveisOrdenados,
   unidadesOrdenadas,
 
+  filtroStatus,
+  filtroCategoria,
+  filtroResponsavel,
+  filtroUnidade,
+
   aplicarFiltroRapido,
 }) {
   return (
@@ -33,6 +38,8 @@ export default function PainelAnalises({
         setMostrar={setMostrarAnalise}
         statusOrdenados={statusOrdenados}
         categoriasOrdenadas={categoriasOrdenadas}
+        filtroStatus={filtroStatus}
+        filtroCategoria={filtroCategoria}
         aplicarFiltroRapido={aplicarFiltroRapido}
       />
 
@@ -41,6 +48,8 @@ export default function PainelAnalises({
         setMostrar={setMostrarResponsabilidades}
         responsaveisOrdenados={responsaveisOrdenados}
         unidadesOrdenadas={unidadesOrdenadas}
+        filtroResponsavel={filtroResponsavel}
+        filtroUnidade={filtroUnidade}
         aplicarFiltroRapido={aplicarFiltroRapido}
       />
     </>

@@ -1,7 +1,8 @@
 /* =========================================================
-   RELEASE........: v1.0.0 RC1
+   RELEASE........: v3.0.0 RC1
    COMPONENTE.....: Acoes
    CAMINHO........: src/components/Toolbar/Acoes.jsx
+   DESCRIÇÃO......: Ações compactas da toolbar
 ========================================================= */
 
 import React from "react";
@@ -9,9 +10,8 @@ import React from "react";
 export default function Acoes({
   onLimpar,
   onExportar,
-  onAtualizar
+  onAtualizar,
 }) {
-
   const abrirPlanilha = () => {
     window.open(
       "https://docs.google.com/spreadsheets/d/1nlD5GDgkTGERM66a_o7jNi4M6JZESlKUihpk_JCdt60/edit?usp=sharing",
@@ -20,39 +20,38 @@ export default function Acoes({
   };
 
   return (
-
     <div className="acoes toolbar-item">
-
       <button
-        className="refresh-button"
+        type="button"
+        className="refresh-button refresh-button-secundario"
         onClick={onLimpar}
       >
-        Limpar Filtros
+        Limpar
       </button>
 
       <button
+        type="button"
         className="refresh-button"
         onClick={onExportar}
       >
-        Exportar CSV
+        CSV
       </button>
 
       <button
+        type="button"
         className="refresh-button"
         onClick={onAtualizar}
       >
-        Atualizar Dados
+        Atualizar
       </button>
 
       <button
-        className="refresh-button"
+        type="button"
+        className="refresh-button refresh-button-planilha"
         onClick={abrirPlanilha}
       >
-        📄 Editar Planilha
+        Planilha
       </button>
-
     </div>
-
   );
-
 }

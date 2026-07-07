@@ -1,5 +1,5 @@
 /* =========================================================
-   RELEASE........: v1.0.0 RC1
+   RELEASE........: v1.1.0 RC1
    ARQUIVO........: DistribuicaoResponsabilidades.jsx
 
    RESPONSABILIDADE:
@@ -16,6 +16,10 @@ export default function DistribuicaoResponsabilidades({
   responsaveisOrdenados,
 
   unidadesOrdenadas,
+
+  filtroResponsavel = "",
+
+  filtroUnidade = "",
 
   aplicarFiltroRapido
 
@@ -57,7 +61,10 @@ export default function DistribuicaoResponsabilidades({
                   <button
                       key={responsavel}
                       type="button"
-                      className="grafico-item"
+                      className={`grafico-item ${
+                        filtroResponsavel === responsavel ? "ativo" : ""
+                      }`}
+                      aria-pressed={filtroResponsavel === responsavel}
                       onClick={() =>
                           aplicarFiltroRapido?.(
                               "responsavel",
@@ -97,7 +104,10 @@ export default function DistribuicaoResponsabilidades({
                   <button
                       key={unidade}
                       type="button"
-                      className="grafico-item"
+                      className={`grafico-item ${
+                        filtroUnidade === unidade ? "ativo" : ""
+                      }`}
+                      aria-pressed={filtroUnidade === unidade}
                       onClick={() =>
                           aplicarFiltroRapido?.(
                               "unidade",

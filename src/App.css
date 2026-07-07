@@ -1142,3 +1142,1126 @@ body {
 .painel-feedback-botao:hover {
   opacity: 0.9;
 }
+/* =====================================================
+   RELEASE........: v3.0.0 RC1
+   ARQUIVO........: trecho final para src/App.css
+   DESCRIÇÃO......: Compactação visual dos cards e painel PPCI
+===================================================== */
+
+:root {
+  --sigiu-verde: #005f5b;
+  --sigiu-verde-escuro: #004845;
+  --sigiu-dourado: #b89a5a;
+  --sigiu-fundo: #f4f6f8;
+  --sigiu-borda: #e5e7eb;
+  --sigiu-texto: #1f2937;
+  --sigiu-muted: #6b7280;
+  --sigiu-card: #ffffff;
+}
+
+.container {
+  max-width: 1560px;
+  padding: 16px;
+}
+
+.header {
+  padding: 22px 20px;
+  margin-bottom: 10px;
+  border-radius: 16px;
+}
+
+.header h1 {
+  font-size: 32px;
+  line-height: 1.15;
+}
+
+.header p {
+  margin-bottom: 0;
+}
+
+.ultima-atualizacao {
+  margin: 4px 0 8px;
+  font-size: 13px;
+}
+
+.secao-painel {
+  padding: 10px;
+  margin-bottom: 14px;
+  border: 1px solid #edf0f2;
+  background: #f8fafb;
+}
+
+.secao-titulo {
+  margin: 14px 0 10px;
+  font-size: 13px;
+  letter-spacing: 1.4px;
+}
+
+.secao-titulo::before {
+  height: 16px;
+}
+
+.graficos-grid {
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.grafico-card {
+  padding: 14px;
+  border: 1px solid var(--sigiu-borda);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.055);
+}
+
+.grafico-card h4 {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.grafico-item {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 8px 0;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dashboard-executivo {
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.dashboard-executivo-sem-status {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 0.8fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.dashboard-coluna,
+.dashboard-conclusao {
+  background: var(--sigiu-card);
+  border: 1px solid var(--sigiu-borda);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.055);
+}
+
+.dashboard-coluna h3,
+.dashboard-conclusao h3 {
+  margin: 0 0 10px;
+  color: var(--sigiu-verde);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.dashboard-conclusao {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.dashboard-conclusao strong {
+  color: var(--sigiu-verde);
+  font-size: 24px;
+  text-align: center;
+}
+
+.barra-item {
+  width: 100%;
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 6px;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.barra-header {
+  font-size: 13px;
+}
+
+.barra-fundo,
+.barra-preenchimento {
+  height: 10px;
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) 170px auto;
+  gap: 10px;
+  align-items: end;
+  margin: 10px 0 14px;
+  padding: 12px;
+  border: 1px solid var(--sigiu-borda);
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.055);
+}
+
+.toolbar-item {
+  min-width: 0;
+}
+
+.titulo-filtro,
+.filtro-label {
+  margin-bottom: 5px;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+
+.campo-busca,
+.campo-categoria {
+  width: 100%;
+  height: 38px;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+.campo-busca:focus {
+  padding-left: 12px;
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.refresh-button,
+.clear-button,
+.export-button {
+  margin-bottom: 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.refresh-button-secundario {
+  background: #6b7280;
+}
+
+.refresh-button-planilha {
+  background: var(--sigiu-dourado);
+}
+
+.cards-grid {
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 10px;
+}
+
+.ppci-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.075);
+}
+
+.ppci-card-compacto {
+  position: relative;
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--sigiu-borda);
+  border-radius: 14px;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.ppci-card-compacto:hover {
+  transform: translateY(-1px);
+  border-color: #cfd8dc;
+  box-shadow: 0 7px 18px rgba(15, 23, 42, 0.12);
+}
+
+.card-header-compacto {
+  margin-bottom: 0;
+}
+
+.card-id {
+  font-size: 15px;
+  line-height: 1.15;
+}
+
+.card-prioridade {
+  min-width: 32px;
+  padding: 3px 8px;
+  font-size: 11px;
+}
+
+.card-identificacao-compacta {
+  min-height: 48px;
+}
+
+.card-local {
+  margin-bottom: 2px;
+  color: var(--sigiu-muted);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.card-predio {
+  display: -webkit-box;
+  margin-bottom: 0;
+  overflow: hidden;
+  color: var(--sigiu-texto);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.25;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.card-badges-compactos {
+  gap: 6px;
+  margin: 0;
+}
+
+.badge-categoria,
+.badge-status {
+  max-width: 100%;
+  padding: 4px 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  font-size: 10.5px;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.badge-categoria:hover,
+.badge-status:hover {
+  transform: none;
+}
+
+.card-processo-compacto {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 6px;
+  margin-bottom: 0;
+  padding: 6px 8px;
+  border-radius: 9px;
+  background: #f8fafc;
+  color: #4b5563;
+  font-size: 11.5px;
+}
+
+.card-processo-compacto strong {
+  color: var(--sigiu-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.card-processo-compacto span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.progress-container-compacto {
+  margin-bottom: 0;
+}
+
+.progress-header {
+  margin-bottom: 3px;
+  font-size: 11px;
+}
+
+.progress-bar {
+  height: 7px;
+}
+
+.card-meta-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(92px, 0.8fr);
+  gap: 6px;
+}
+
+.card-meta-item {
+  min-width: 0;
+  padding: 7px 8px;
+  border: 1px solid #edf0f2;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.card-meta-item span {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--sigiu-muted);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.card-meta-item strong {
+  display: block;
+  overflow: hidden;
+  color: var(--sigiu-texto);
+  font-size: 11.5px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-prazo-chip {
+  width: fit-content;
+  max-width: 100%;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.prazo-ok {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.prazo-alerta {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.prazo-vencido {
+  background: #ffebee;
+  color: #b71c1c;
+}
+
+.prazo-sem-data {
+  background: #eceff1;
+  color: #546e7a;
+}
+
+.card-providencia-compacta {
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid #edf0f2;
+  font-size: 11.5px;
+}
+
+.card-providencia-compacta span {
+  margin-bottom: 4px;
+  color: var(--sigiu-muted);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.card-providencia-compacta p {
+  display: -webkit-box;
+  min-height: 34px;
+  margin: 0;
+  overflow: hidden;
+  color: #374151;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.badge-alerta,
+.badge-vencido {
+  display: none;
+}
+
+.vencimento-ok {
+  border-left-width: 4px;
+}
+
+.vencimento-atencao {
+  border-left-width: 4px;
+}
+
+.vencimento-critico {
+  border-top-width: 0;
+  border-left-width: 4px;
+}
+
+.vencimento-vencido {
+  border-top-width: 0;
+  border-left-width: 4px;
+  background: #fff8f8;
+}
+
+.vencimento-sem-data {
+  border-left-width: 4px;
+}
+
+.cards-vazio {
+  padding: 16px;
+  border: 1px dashed var(--sigiu-borda);
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--sigiu-muted);
+  font-size: 14px;
+}
+
+@media (max-width: 980px) {
+  .toolbar,
+  .dashboard-executivo-sem-status {
+    grid-template-columns: 1fr;
+  }
+
+  .acoes {
+    justify-content: flex-start;
+  }
+
+  .graficos-grid {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 560px) {
+  .container {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-meta-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .refresh-button,
+  .clear-button,
+  .export-button {
+    flex: 1 1 calc(50% - 8px);
+  }
+}
+
+/* =====================================================
+   SPRINT 3.1 - AJUSTES VISUAIS DE FILTROS ATIVOS
+   Correções:
+   - Destaque visual para filtros clicados nas análises.
+   - Reforço de contraste das legendas da Situação Geral.
+===================================================== */
+
+.grafico-item {
+  color: #1f2937;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 8px 10px;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+.grafico-item span {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.grafico-item strong {
+  color: var(--sigiu-verde);
+  font-weight: 800;
+}
+
+.grafico-item:hover {
+  background: #eef8f7;
+  border-color: #cfe5e2;
+}
+
+.grafico-item.ativo {
+  background: #e0f2f1;
+  border-color: var(--sigiu-verde);
+  box-shadow: inset 4px 0 0 var(--sigiu-verde);
+}
+
+.grafico-item.ativo span,
+.grafico-item.ativo strong {
+  color: var(--sigiu-verde);
+}
+
+.barra-item {
+  color: #1f2937;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.barra-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+  color: #1f2937;
+  opacity: 1;
+  visibility: visible;
+}
+
+.barra-header span,
+.barra-header strong {
+  display: inline-block;
+  color: #1f2937 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.barra-header span {
+  font-weight: 700;
+}
+
+.barra-header strong {
+  color: var(--sigiu-verde) !important;
+  font-weight: 900;
+}
+
+.barra-item:hover {
+  background: #f0fdfa;
+  border-color: #cfe5e2;
+  opacity: 1;
+}
+
+.barra-item.ativo {
+  background: #e0f2f1;
+  border-color: var(--sigiu-verde);
+  box-shadow: inset 4px 0 0 var(--sigiu-verde);
+}
+
+.barra-item.ativo .barra-header span,
+.barra-item.ativo .barra-header strong {
+  color: var(--sigiu-verde) !important;
+}
+
+/* =====================================================
+   SPRINT 3.2 - FILTROS ATIVOS COMPACTOS
+===================================================== */
+
+.filtros-ativos-painel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: -4px 0 14px;
+  padding: 10px 12px;
+  background: #ffffff;
+  border: 1px solid #dfe5e8;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.filtros-ativos-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #004845;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.filtros-ativos-header strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #005f5b;
+  color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+.filtros-ativos-lista {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  flex-wrap: wrap;
+  min-width: 180px;
+}
+
+.filtro-ativo-chip {
+  display: inline-flex;
+  align-items: center;
+  max-width: 340px;
+  gap: 7px;
+  padding: 6px 9px;
+  border: 1px solid #b7d7d4;
+  border-radius: 999px;
+  background: #eef8f7;
+  color: #004845;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.filtro-ativo-chip:hover {
+  background: #005f5b;
+  color: #ffffff;
+  border-color: #005f5b;
+}
+
+.filtro-ativo-rotulo {
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.82;
+  white-space: nowrap;
+}
+
+.filtro-ativo-valor {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.filtro-ativo-remover {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  border-radius: 999px;
+  background: rgba(0, 95, 91, 0.14);
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.filtro-ativo-chip:hover .filtro-ativo-remover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.filtros-ativos-limpar {
+  border: none;
+  border-radius: 999px;
+  background: #6b7280;
+  color: #ffffff;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.15s ease;
+}
+
+.filtros-ativos-limpar:hover {
+  background: #4b5563;
+}
+
+@media (max-width: 720px) {
+  .filtros-ativos-painel {
+    align-items: stretch;
+  }
+
+  .filtros-ativos-header,
+  .filtros-ativos-limpar {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .filtro-ativo-chip {
+    max-width: 100%;
+  }
+}
+
+/* =====================================================
+   SPRINT 3.3 - CABEÇALHO COMPACTO DA LISTAGEM PPCI
+   Objetivo:
+   - Exibir quantidade visível e total de PPCIs.
+   - Exibir critério de ordenação ativo.
+   - Melhorar leitura da seção de cards sem ampliar o painel.
+===================================================== */
+
+.secao-painel-cards {
+  padding-top: 12px;
+}
+
+.cards-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 0 0 12px;
+}
+
+.cards-titulo {
+  margin: 0 0 3px;
+}
+
+.cards-subtitulo {
+  margin: 0 0 0 14px;
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.cards-resumo-lista {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cards-contador,
+.cards-ordenacao {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 6px 10px;
+  border: 1px solid #dfe5e8;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.cards-contador strong {
+  color: #005f5b;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.cards-contador small {
+  color: #6b7280;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cards-ordenacao strong {
+  color: #005f5b;
+  font-weight: 900;
+}
+
+@media (max-width: 720px) {
+  .cards-cabecalho {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .cards-resumo-lista {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .cards-contador,
+  .cards-ordenacao {
+    max-width: 100%;
+  }
+}
+
+/* =====================================================
+   SPRINT 3.4.1 - AJUSTE VISUAL DA LISTA COMPACTA
+   Objetivo:
+   - Manter a visualização em lista dentro do limite lateral do painel.
+   - Permitir que as colunas internas encolham sem romper o container.
+   - Truncar textos longos de forma controlada.
+===================================================== */
+
+.cards-modo-visual {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 30px;
+  padding: 3px;
+  border: 1px solid #dfe5e8;
+  border-radius: 999px;
+  background: #f8fafc;
+}
+
+.cards-modo-botao {
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: #6b7280;
+  padding: 5px 9px;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.cards-modo-botao:hover {
+  background: #eef8f7;
+  color: #005f5b;
+}
+
+.cards-modo-botao.ativo {
+  background: #005f5b;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 95, 91, 0.2);
+}
+
+.cards-grid-lista {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+.cards-grid-lista .ppci-card-compacto {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  display: grid;
+  grid-template-columns:
+    88px
+    minmax(0, 1.15fr)
+    minmax(0, 0.9fr)
+    minmax(96px, 0.48fr)
+    minmax(130px, 0.68fr)
+    minmax(86px, 0.42fr)
+    minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  padding: 9px 10px;
+}
+
+.cards-grid-lista .ppci-card-compacto:hover {
+  transform: none;
+}
+
+.cards-grid-lista .ppci-card-compacto > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.cards-grid-lista .card-header-compacto {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  margin: 0;
+}
+
+.cards-grid-lista .card-id,
+.cards-grid-lista .card-local,
+.cards-grid-lista .card-predio,
+.cards-grid-lista .progress-header span,
+.cards-grid-lista .card-meta-item span,
+.cards-grid-lista .card-meta-item strong,
+.cards-grid-lista .card-providencia-compacta p {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cards-grid-lista .card-id,
+.cards-grid-lista .card-local,
+.cards-grid-lista .progress-header span,
+.cards-grid-lista .card-meta-item span,
+.cards-grid-lista .card-meta-item strong {
+  white-space: nowrap;
+}
+
+.cards-grid-lista .card-prioridade {
+  width: fit-content;
+  max-width: 100%;
+  flex-shrink: 0;
+}
+
+.cards-grid-lista .card-identificacao-compacta {
+  min-height: 0;
+  min-width: 0;
+}
+
+.cards-grid-lista .card-predio {
+  -webkit-line-clamp: 1;
+}
+
+.cards-grid-lista .card-badges-compactos {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.cards-grid-lista .badge-categoria,
+.cards-grid-lista .badge-status {
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cards-grid-lista .card-processo-compacto {
+  display: none;
+}
+
+.cards-grid-lista .progress-container-compacto {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.cards-grid-lista .progress-header {
+  gap: 8px;
+}
+
+.cards-grid-lista .progress-header strong {
+  flex-shrink: 0;
+}
+
+.cards-grid-lista .progress-bar {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.cards-grid-lista .card-meta-grid {
+  min-width: 0;
+  max-width: 100%;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 6px;
+}
+
+.cards-grid-lista .card-meta-item {
+  min-width: 0;
+  max-width: 100%;
+  padding: 6px 7px;
+  overflow: hidden;
+}
+
+.cards-grid-lista .card-prazo-chip {
+  justify-self: start;
+  max-width: 100%;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.cards-grid-lista .card-providencia-compacta {
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  padding: 0 0 0 10px;
+  border-top: none;
+  border-left: 1px solid #edf0f2;
+  overflow: hidden;
+}
+
+.cards-grid-lista .card-providencia-compacta span {
+  display: none;
+}
+
+.cards-grid-lista .card-providencia-compacta p {
+  min-height: 0;
+  -webkit-line-clamp: 2;
+}
+
+@media (max-width: 1360px) {
+  .cards-grid-lista .ppci-card-compacto {
+    grid-template-columns:
+      82px
+      minmax(0, 1.2fr)
+      minmax(0, 0.92fr)
+      minmax(96px, 0.5fr)
+      minmax(128px, 0.7fr)
+      minmax(82px, 0.42fr)
+      minmax(0, 0.9fr);
+    gap: 8px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .cards-grid-lista .ppci-card-compacto {
+    grid-template-columns:
+      82px
+      minmax(0, 1.15fr)
+      minmax(0, 0.9fr)
+      minmax(96px, 0.5fr)
+      minmax(128px, 0.72fr)
+      minmax(82px, 0.42fr);
+  }
+
+  .cards-grid-lista .card-providencia-compacta {
+    display: none;
+  }
+}
+
+@media (max-width: 980px) {
+  .cards-grid-lista .ppci-card-compacto {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .cards-grid-lista .card-header-compacto {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .cards-grid-lista .card-badges-compactos {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .cards-grid-lista .card-processo-compacto,
+  .cards-grid-lista .card-providencia-compacta {
+    display: grid;
+  }
+
+  .cards-grid-lista .card-providencia-compacta {
+    padding: 8px 0 0;
+    border-top: 1px solid #edf0f2;
+    border-left: none;
+  }
+
+  .cards-grid-lista .card-providencia-compacta span {
+    display: block;
+  }
+}
+
+@media (max-width: 720px) {
+  .cards-modo-visual {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cards-modo-botao {
+    flex: 1;
+  }
+}
