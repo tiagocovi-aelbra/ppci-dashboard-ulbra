@@ -267,70 +267,309 @@ body {
   color: #333;
 }
 
+/* =====================================================
+   MODAL PPCI - DETALHAMENTO COM ABAS
+===================================================== */
+
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.45);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 9999;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(3px);
 }
 
-.modal-content{
-    background:#fff;
-    width:900px;
-    max-width:92vw;
-    max-height:82vh;
-    overflow-y:auto;
-    border-radius:18px;
-    padding:28px 32px;
-    box-shadow:0 12px 30px rgba(0,0,0,.20);
+.modal-content {
+  position: relative;
+  width: min(920px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #ffffff;
+  color: #1f2937;
+  border-radius: 18px;
+  padding: 28px 32px;
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.28);
+  animation: modalEntrada 0.18s ease-out;
+}
+
+@keyframes modalEntrada {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .modal-close {
   position: absolute;
-  right: 20px;
-  top: 20px;
-  border: none;
-  background: none;
-  font-size: 24px;
+  top: 18px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #6b7280;
+  font-size: 18px;
+  font-weight: 700;
   cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.modal-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:18px;
-    margin:20px 0;
+.modal-close:hover {
+  background: #f3f4f6;
+  color: #b71c1c;
+  border-color: #fecaca;
+}
+
+.modal-header {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0 48px;
+  margin-bottom: 18px;
+  box-sizing: border-box;
+}
+
+.modal-header > div {
+  width: 100%;
+}
+
+.modal-header h2 {
+  margin: 0 0 6px;
+  color: var(--modal-primary-dark);
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: var(--modal-text);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.modal-unidade {
+  margin: 8px 0 0;
+  color: var(--modal-muted);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.modal-progresso {
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #f8fafc;
+}
+
+.modal-progresso .progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  color: #6b7280;
+  font-size: 0.92rem;
+}
+
+.modal-progresso .progress-header strong {
+  color: #005f5b;
+  font-size: 0.98rem;
+}
+
+.modal-progresso .progress-bar {
+  width: 100%;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e5e7eb;
+}
+
+.modal-progresso .progress-fill {
+  height: 100%;
+  min-width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #005f5b, #2e7d32);
+  transition: width 0.25s ease;
+}
+
+.modal-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 6px;
+  margin: 0 0 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #f8fafc;
+}
+
+.modal-tab {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: #6b7280;
+  padding: 9px 14px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.modal-tab:hover {
+  background: #ffffff;
+  color: #005f5b;
+  border-color: #e5e7eb;
+}
+
+.modal-tab.active {
+  background: #005f5b;
+  color: #ffffff;
+  border-color: #005f5b;
+  box-shadow: 0 6px 16px rgba(0, 95, 91, 0.22);
+}
+
+.modal-tab-content {
+  min-height: 230px;
 }
 
 .modal-secao {
-  margin: 18px 0;
-  padding: 16px 0;
-  border-top: 1px solid #e5e5e5;
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #ffffff;
 }
 
-.modal-content h2{
-    margin:0;
-    text-align:center;
-    font-size:30px;
-    color:#005c5c;
+.modal-secao h4 {
+  margin: 0 0 14px;
+  color: #005f5b;
+  font-size: 1rem;
+  font-weight: 800;
 }
 
-.modal-content h3{
-    margin:6px 0;
-    text-align:center;
-    font-size:18px;
-    font-weight:600;
+.modal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
 
-.modal-unidade{
-    text-align:center;
-    color:#777;
-    margin-bottom:18px;
-    font-size:15px;
+.modal-grid > div,
+.modal-bloco-texto {
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #f8fafc;
+  font-size: 0.94rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.modal-grid strong,
+.modal-bloco-texto strong {
+  display: inline-block;
+  margin-bottom: 4px;
+  color: #6b7280;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.25;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.modal-bloco-texto {
+  margin-bottom: 12px;
+}
+
+.modal-bloco-texto:last-child {
+  margin-bottom: 0;
+}
+
+.modal-bloco-texto p {
+  margin: 2px 0 0;
+  white-space: pre-wrap;
+}
+
+.modal-secao a {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  padding: 7px 10px;
+  border-radius: 9px;
+  background: #eef8f7;
+  color: #005f5b;
+  font-weight: 800;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.modal-secao a:hover {
+  background: #005f5b;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+@media (max-width: 720px) {
+  .modal-overlay {
+    align-items: flex-start;
+    padding: 12px;
+  }
+
+  .modal-content {
+    max-height: 94vh;
+    padding: 22px 18px;
+    border-radius: 14px;
+  }
+
+  .modal-header {
+    padding-right: 40px;
+  }
+
+  .modal-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .modal-header h3 {
+    font-size: 1rem;
+  }
+
+  .modal-tab {
+    flex: 1 1 calc(50% - 6px);
+    padding: 9px 8px;
+    text-align: center;
+  }
+
+  .modal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .modal-content {
+    padding: 20px 14px;
+  }
+
+  .modal-tab {
+    flex-basis: 100%;
+  }
 }
 
 .card-badges{
@@ -842,4 +1081,64 @@ body {
     flex-wrap:wrap;
     gap:8px;
     margin-bottom:14px;
+}
+
+/* =====================================================
+   RELEASE........: v2.6.0 RC1
+   ARQUIVO........: trecho adicional para src/App.css
+   DESCRIÇÃO......: Feedback de carregamento, erro e lista vazia
+===================================================== */
+
+.painel-feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 18px 0 24px;
+  padding: 18px 20px;
+  border-radius: 14px;
+  border: 1px solid #d9e2e1;
+  background: #ffffff;
+  color: #2f4f46;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.painel-feedback strong {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.painel-feedback span {
+  color: #555555;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.painel-feedback-loading {
+  border-left: 6px solid #005f5b;
+}
+
+.painel-feedback-erro {
+  border-left: 6px solid #b71c1c;
+  background: #fff5f5;
+}
+
+.painel-feedback-vazio {
+  border-left: 6px solid #90a4ae;
+}
+
+.painel-feedback-botao {
+  width: fit-content;
+  margin-top: 6px;
+  border: none;
+  border-radius: 30px;
+  background: #005f5b;
+  color: #ffffff;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.painel-feedback-botao:hover {
+  opacity: 0.9;
 }

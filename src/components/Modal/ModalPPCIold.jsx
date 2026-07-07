@@ -1,33 +1,11 @@
 /* =========================================================
-   RELEASE........: v2.5.0 RC1
+   RELEASE........: v1.1.1 RC1
    ARQUIVO........: src/components/Modal/ModalPPCI.jsx
-   DESCRIÇÃO......: Modal de detalhes do PPCI com abas e campos padronizados
+   DESCRIÇÃO......: Modal de detalhes do PPCI com abas e todos os campos da API
 ========================================================= */
 
 import React, { useEffect, useState } from "react";
-
 import { mapPPCI } from "../../domain";
-import { PPCI_CAMPOS } from "../../domain/ppciCampos";
-import { extrairUrlLinkProcesso } from "../../utils/linkProcesso";
-
-function CampoInfo({ titulo, children }) {
-  return (
-    <div>
-      <strong>{titulo}</strong>
-      <br />
-      {children}
-    </div>
-  );
-}
-
-function CampoTexto({ titulo, children }) {
-  return (
-    <div className="modal-bloco-texto">
-      <strong>{titulo}</strong>
-      <p>{children}</p>
-    </div>
-  );
-}
 
 export default function ModalPPCI({
   ppciSelecionado,
@@ -63,8 +41,9 @@ export default function ModalPPCI({
   const data = (campo) =>
     textoOuPadrao(formatarData(ppciSelecionado?.[campo]), "-");
 
-  const linkProcessoBruto = ppciSelecionado?.[PPCI_CAMPOS.LINK_PROCESSO];
-  const linkProcessoHref = extrairUrlLinkProcesso(linkProcessoBruto);
+  const linkProcesso = ppciSelecionado?.["Link Processo"];
+  const linkProcessoValido =
+    typeof linkProcesso === "string" && /^https?:\/\//i.test(linkProcesso.trim());
 
   const abas = [
     { id: "geral", label: "Geral" },
@@ -98,7 +77,6 @@ export default function ModalPPCI({
             <span>Conclusão</span>
             <strong>{conclusao}%</strong>
           </div>
-
           <div className="progress-bar">
             <div
               className="progress-fill"
@@ -126,33 +104,47 @@ export default function ModalPPCI({
               <h4>Informações gerais</h4>
 
               <div className="modal-grid">
-                <CampoInfo titulo="ID">
-                  {valor(PPCI_CAMPOS.ID)}
-                </CampoInfo>
+                <div>
+                  <strong>ID</strong>
+                  <br />
+                  {valor("ID")}
+                </div>
 
-                <CampoInfo titulo="Unidade">
-                  {valor(PPCI_CAMPOS.UNIDADE)}
-                </CampoInfo>
+                <div>
+                  <strong>Unidade</strong>
+                  <br />
+                  {valor("Unidade")}
+                </div>
 
-                <CampoInfo titulo="Prédio / Edificação">
-                  {valor(PPCI_CAMPOS.PREDIO)}
-                </CampoInfo>
+                <div>
+                  <strong>Prédio / Edificação</strong>
+                  <br />
+                  {valor("Prédio / Edificação")}
+                </div>
 
-                <CampoInfo titulo="Prioridade">
-                  {valor(PPCI_CAMPOS.PRIORIDADE)}
-                </CampoInfo>
+                <div>
+                  <strong>Prioridade</strong>
+                  <br />
+                  {valor("Prioridade")}
+                </div>
 
-                <CampoInfo titulo="Categoria">
-                  {valor(PPCI_CAMPOS.CATEGORIA)}
-                </CampoInfo>
+                <div>
+                  <strong>Categoria</strong>
+                  <br />
+                  {valor("Categoria")}
+                </div>
 
-                <CampoInfo titulo="Status / Situação">
-                  {valor(PPCI_CAMPOS.STATUS, "Sem Status")}
-                </CampoInfo>
+                <div>
+                  <strong>Status / Situação</strong>
+                  <br />
+                  {valor("Status / Situação", "Sem Status")}
+                </div>
 
-                <CampoInfo titulo="% Conclusão">
+                <div>
+                  <strong>% Conclusão</strong>
+                  <br />
                   {conclusao}%
-                </CampoInfo>
+                </div>
               </div>
             </div>
           )}
@@ -162,33 +154,39 @@ export default function ModalPPCI({
               <h4>Processo</h4>
 
               <div className="modal-grid">
-                <CampoInfo titulo="Número do PPCI / Processo CBMRS">
-                  {valor(PPCI_CAMPOS.PROCESSO)}
-                </CampoInfo>
+                <div>
+                  <strong>Número do PPCI / Processo CBMRS</strong>
+                  <br />
+                  {valor("Número do PPCI / Processo CBMRS")}
+                </div>
 
-                <CampoInfo titulo="Link Processo">
-                  {linkProcessoHref ? (
+                <div>
+                  <strong>Link Processo</strong>
+                  <br />
+                  {linkProcessoValido ? (
                     <a
-                      className="modal-link-processo"
-                      href={linkProcessoHref}
+                      href={linkProcesso.trim()}
                       target="_blank"
-                      rel="noopener noreferrer"
-                      title={linkProcessoHref}
+                      rel="noreferrer"
                     >
                       Abrir processo
                     </a>
                   ) : (
-                    valor(PPCI_CAMPOS.LINK_PROCESSO)
+                    valor("Link Processo")
                   )}
-                </CampoInfo>
+                </div>
 
-                <CampoInfo titulo="Solicitante">
-                  {valor(PPCI_CAMPOS.SOLICITANTE)}
-                </CampoInfo>
+                <div>
+                  <strong>Solicitante</strong>
+                  <br />
+                  {valor("Solicitante")}
+                </div>
 
-                <CampoInfo titulo="Responsável">
-                  {valor(PPCI_CAMPOS.RESPONSAVEL)}
-                </CampoInfo>
+                <div>
+                  <strong>Responsável</strong>
+                  <br />
+                  {valor("Responsável")}
+                </div>
               </div>
             </div>
           )}
@@ -197,17 +195,20 @@ export default function ModalPPCI({
             <div className="modal-secao">
               <h4>Andamento</h4>
 
-              <CampoTexto titulo="Descrição / Itens">
-                {valor(PPCI_CAMPOS.DESCRICAO)}
-              </CampoTexto>
+              <div className="modal-bloco-texto">
+                <strong>Descrição / Itens</strong>
+                <p>{valor("Descrição / Itens")}</p>
+              </div>
 
-              <CampoTexto titulo="Providência / Próximo passo">
-                {valor(PPCI_CAMPOS.PROXIMO_PASSO)}
-              </CampoTexto>
+              <div className="modal-bloco-texto">
+                <strong>Providência / Próximo passo</strong>
+                <p>{valor("Providência / Próximo passo")}</p>
+              </div>
 
-              <CampoTexto titulo="Observações">
-                {valor(PPCI_CAMPOS.OBSERVACOES)}
-              </CampoTexto>
+              <div className="modal-bloco-texto">
+                <strong>Observações</strong>
+                <p>{valor("Observações")}</p>
+              </div>
             </div>
           )}
 
@@ -216,21 +217,29 @@ export default function ModalPPCI({
               <h4>Cronograma</h4>
 
               <div className="modal-grid">
-                <CampoInfo titulo="Data de entrada">
-                  {data(PPCI_CAMPOS.DATA_ENTRADA)}
-                </CampoInfo>
+                <div>
+                  <strong>Data de entrada</strong>
+                  <br />
+                  {data("Data de entrada")}
+                </div>
 
-                <CampoInfo titulo="Data de início Obra/Projeto">
-                  {data(PPCI_CAMPOS.DATA_INICIO)}
-                </CampoInfo>
+                <div>
+                  <strong>Data de início Obra/Projeto</strong>
+                  <br />
+                  {data("Data de início Obra/Projeto")}
+                </div>
 
-                <CampoInfo titulo="Data prevista entrega Obra/Projeto">
-                  {data(PPCI_CAMPOS.DATA_ENTREGA)}
-                </CampoInfo>
+                <div>
+                  <strong>Data prevista entrega Obra/Projeto</strong>
+                  <br />
+                  {data("Data prevista entrega Obra/Projeto")}
+                </div>
 
-                <CampoInfo titulo="Data limite / vencimento PPCI">
-                  {data(PPCI_CAMPOS.DATA_VENCIMENTO)}
-                </CampoInfo>
+                <div>
+                  <strong>Data limite / vencimento PPCI</strong>
+                  <br />
+                  {data("Data limite / vencimento PPCI")}
+                </div>
               </div>
             </div>
           )}

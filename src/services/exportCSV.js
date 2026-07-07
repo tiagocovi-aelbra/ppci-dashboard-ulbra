@@ -1,52 +1,50 @@
 /* =========================================================
-   RELEASE........: v1.0.0 RC1
+   RELEASE........: v2.5.0 RC1
    ARQUIVO........: src/services/exportCSV.js
+   DESCRIÇÃO......: Exportação CSV completa dos dados PPCI
+
+   OBSERVAÇÃO.....: Os campos exportados são controlados por
+                    src/domain/ppciCampos.js.
 ========================================================= */
 
-export function exportarCSV(ppcisFiltrados = []) {
+import { PPCI_CAMPOS_CSV } from "../domain/ppciCampos";
 
+function normalizarValorCSV(valor) {
+  if (valor === null || valor === undefined) return "";
+
+  const texto = String(valor)
+    .replace(/\r?\n|\r/g, " ")
+    .trim();
+
+  return `"${texto.replace(/"/g, '""')}"`;
+}
+
+function gerarNomeArquivo() {
+  const data = new Date().toISOString().slice(0, 10);
+  return `PPCIs_${data}.csv`;
+}
+
+export function exportarCSV(ppcisFiltrados = []) {
   if (!ppcisFiltrados.length) return;
 
-  const cabecalho = [
-    "ID",
-    "Categoria",
-    "Unidade",
-    "Prédio",
-    "Status",
-    "Responsável",
-    "Solicitante",
-    "Entrada",
-    "Vencimento",
-    "Prioridade"
-  ];
+  const cabecalho = PPCI_CAMPOS_CSV.map(normalizarValorCSV).join(";");
 
-  const linhas = ppcisFiltrados.map((item) => [
-    item.ID ?? "",
-    item.Categoria ?? "",
-    item.Unidade ?? "",
-    item["Prédio / Edificação"] ?? "",
-    item["Status / Situação"] ?? "",
-    item.Responsável ?? "",
-    item.Solicitante ?? "",
-    item["Data de entrada"] ?? "",
-    item["Data limite / vencimento PPCI"] ?? "",
-    item.Prioridade ?? ""
-  ]);
+  const linhas = ppcisFiltrados.map((item) =>
+    PPCI_CAMPOS_CSV.map((campo) => normalizarValorCSV(item?.[campo])).join(";")
+  );
 
-  const csv = [
-    cabecalho.join(";"),
-    ...linhas.map((linha) => linha.join(";"))
-  ].join("\n");
+  const csv = [cabecalho, ...linhas].join("\n");
 
-  const blob = new Blob([csv], {
-    type: "text/csv;charset=utf-8;"
+  const blob = new Blob([`\uFEFF${csv}`], {
+    type: "text/csv;charset=utf-8;",
   });
 
+  const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = `PPCIs_${new Date().toISOString().slice(0,10)}.csv`;
+
+  link.href = url;
+  link.download = gerarNomeArquivo();
   link.click();
 
-  URL.revokeObjectURL(link.href);
-
+  URL.revokeObjectURL(url);
 }

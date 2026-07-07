@@ -1,46 +1,48 @@
 /* =========================================================
-   RELEASE........: v2.6.0 RC1
+   RELEASE........: v1.0.0 RC1
    ARQUIVO........: src/hooks/usePPCI.js
-   DESCRIÇÃO......: Carregamento dos PPCIs com estados de loading e erro
+
+   RESPONSABILIDADE:
+   Centralizar o carregamento dos PPCIs.
 ========================================================= */
 
 import { useCallback, useEffect, useState } from "react";
 import { getPPCIs } from "../services/api";
 
 export default function usePPCI() {
+
   const [ppcis, setPpcis] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [erro, setErro] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [ultimaAtualizacao, setUltimaAtualizacao] = useState("");
 
   const carregarDados = useCallback(async () => {
+
     try {
+
       setLoading(true);
-      setErro(null);
 
       const dados = await getPPCIs();
-
-      if (!Array.isArray(dados)) {
-        throw new Error("A API não retornou uma lista válida de PPCIs.");
-      }
 
       setPpcis(dados);
 
       setUltimaAtualizacao(
         new Date().toLocaleString("pt-BR")
       );
-    } catch (erroCapturado) {
-      console.error("Erro ao carregar PPCIs:", erroCapturado);
 
-      setErro(
-        erroCapturado?.message ||
-          "Não foi possível carregar os dados dos PPCIs."
-      );
+    } catch (erro) {
 
-      setPpcis([]);
+      console.error("Erro ao carregar PPCIs:", erro);
+
+      console.error(erro);
+
+      // TODO: integrar com sistema de notificações da aplicação.
+
     } finally {
+
       setLoading(false);
+
     }
+
   }, []);
 
   useEffect(() => {
@@ -51,8 +53,8 @@ export default function usePPCI() {
     ppcis,
     setPpcis,
     loading,
-    erro,
     ultimaAtualizacao,
-    carregarDados,
+    carregarDados
   };
+
 }

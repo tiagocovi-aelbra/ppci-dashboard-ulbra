@@ -1,9 +1,10 @@
 /* =========================================================
-   RELEASE........: v1.0.1 RC1
+   RELEASE........: v1.0.3 RC1
    ARQUIVO........: src/components/Analises/AnaliseCarteira.jsx
 
    RESPONSABILIDADE:
-   Exibir a análise da carteira PPCI.
+   Exibir a análise da carteira PPCI com filtros analíticos
+   por Status e Categoria.
 ========================================================= */
 
 import React from "react";
@@ -15,13 +16,10 @@ export default function AnaliseCarteira({
   statusOrdenados = [],
   categoriasOrdenadas = [],
 
-  aplicarFiltroRapido
+  aplicarFiltroRapido,
 }) {
-
   return (
-
     <div className="secao-painel">
-
       <h3
         className="secao-titulo titulo-expansivel"
         onClick={() => setMostrar(!mostrar)}
@@ -30,25 +28,19 @@ export default function AnaliseCarteira({
           {mostrar ? "▼" : "▶"}
         </span>
 
-        <span>
-          ANÁLISE DA CARTEIRA PPCI
-        </span>
+        <span>ANÁLISE DA CARTEIRA PPCI</span>
       </h3>
 
       {mostrar && (
-
         <div className="graficos-grid">
-
           {/* ===========================
               STATUS
           ============================ */}
 
           <div className="grafico-card">
-
             <h4>Status dos PPCIs</h4>
 
             {statusOrdenados.map(([status, quantidade]) => (
-
               <button
                 key={status}
                 type="button"
@@ -59,15 +51,10 @@ export default function AnaliseCarteira({
                   }
                 }}
               >
-
                 <span>{status}</span>
-
                 <strong>{quantidade}</strong>
-
               </button>
-
             ))}
-
           </div>
 
           {/* ===========================
@@ -75,11 +62,9 @@ export default function AnaliseCarteira({
           ============================ */}
 
           <div className="grafico-card">
-
             <h4>Categorias</h4>
 
             {categoriasOrdenadas.map(([categoria, quantidade]) => (
-
               <button
                 key={categoria}
                 type="button"
@@ -90,23 +75,13 @@ export default function AnaliseCarteira({
                   }
                 }}
               >
-
                 <span>{categoria}</span>
-
                 <strong>{quantidade}</strong>
-
               </button>
-
             ))}
-
           </div>
-
         </div>
-
       )}
-
     </div>
-
   );
-
 }
