@@ -1,11 +1,13 @@
 /* =========================================================
-   RELEASE........: v3.0.0 RC1
+   RELEASE........: v4.4.0 RC1
    COMPONENTE.....: Acoes
    CAMINHO........: src/components/Toolbar/Acoes.jsx
-   DESCRIÇÃO......: Ações compactas da toolbar
+   DESCRIÇÃO......: Ações compactas da toolbar com links centralizados
 ========================================================= */
 
 import React from "react";
+
+import { SIGIU_LINKS } from "../../config/sigiuConfig";
 
 export default function Acoes({
   onLimpar,
@@ -13,9 +15,12 @@ export default function Acoes({
   onAtualizar,
 }) {
   const abrirPlanilha = () => {
+    if (!SIGIU_LINKS.PLANILHA_PPCI) return;
+
     window.open(
-      "https://docs.google.com/spreadsheets/d/1nlD5GDgkTGERM66a_o7jNi4M6JZESlKUihpk_JCdt60/edit?usp=sharing",
-      "_blank"
+      SIGIU_LINKS.PLANILHA_PPCI,
+      "_blank",
+      "noopener,noreferrer"
     );
   };
 

@@ -1,13 +1,19 @@
 /* =========================================================
-   RELEASE........: v3.4.0 RC1
+   RELEASE........: v4.4.0 RC1
    ARQUIVO........: src/components/Cards/CardsPPCI.jsx
    DESCRIÇÃO......: Listagem de cards PPCI com cabeçalho compacto,
-                    contador de resultados, indicação da ordenação
-                    e alternância visual entre Cards e Lista.
+                    alternância Cards/Lista, persistência visual,
+                    estado vazio filtrado aprimorado e reset de preferências.
 ========================================================= */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardPPCI from "./CardPPCI";
+import ResultadoVazioFiltros from "../Feedback/ResultadoVazioFiltros";
+
+import {
+  MODO_VISUAL_PADRAO,
+  SIGIU_STORAGE_KEYS,
+} from "../../config/sigiuConfig";
 
 const ORDENACOES_LABEL = {
   prioridade: "Prioridade",
@@ -16,18 +22,48 @@ const ORDENACOES_LABEL = {
   responsavel: "Responsável",
 };
 
+function obterModoVisualInicial() {
+  try {
+    const modoSalvo = window.localStorage.getItem(SIGIU_STORAGE_KEYS.MODO_VISUAL);
+    return modoSalvo === "lista" || modoSalvo === "cards"
+      ? modoSalvo
+      : MODO_VISUAL_PADRAO;
+  } catch {
+    return MODO_VISUAL_PADRAO;
+  }
+}
+
+function salvarModoVisual(modoVisual) {
+  try {
+    window.localStorage.setItem(SIGIU_STORAGE_KEYS.MODO_VISUAL, modoVisual);
+  } catch {
+    // Mantém o painel funcional mesmo quando o navegador bloquear localStorage.
+  }
+}
+
 export default function CardsPPCI({
   ppcis = [],
   totalGeral = 0,
   ordenacao = "prioridade",
+  filtrosAtivos = {},
+  acoesFiltros = {},
   obterDiasParaVencer,
   obterClasseVencimento,
   textoOuPadrao,
   formatarData,
   aplicarFiltroRapido,
   setPpciSelecionado,
+  preferenciasVersao = 0,
 }) {
-  const [modoVisual, setModoVisual] = useState("cards");
+  const [modoVisual, setModoVisual] = useState(obterModoVisualInicial);
+
+  useEffect(() => {
+    salvarModoVisual(modoVisual);
+  }, [modoVisual]);
+
+  useEffect(() => {
+    setModoVisual(obterModoVisualInicial());
+  }, [preferenciasVersao]);
 
   const totalFiltrado = ppcis.length;
   const existemFiltros = totalGeral > 0 && totalFiltrado !== totalGeral;
@@ -82,9 +118,11 @@ export default function CardsPPCI({
       <section className="secao-painel secao-painel-cards">
         <CabecalhoListagem />
 
-        <div className="cards-vazio">
-          Nenhum PPCI encontrado para os filtros informados.
-        </div>
+        <ResultadoVazioFiltros
+          totalGeral={totalGeral}
+          filtrosAtivos={filtrosAtivos}
+          acoesFiltros={acoesFiltros}
+        />
       </section>
     );
   }

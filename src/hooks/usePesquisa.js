@@ -1,5 +1,5 @@
 /* =========================================================
-   RELEASE........: v2.3.0 RC1
+   RELEASE........: v5.2.0 RC1
    ARQUIVO........: src/hooks/usePesquisa.js
 
    RESPONSABILIDADE:
@@ -14,6 +14,35 @@ import {
   textoOuPadrao,
 } from "../utils/ppciUtils";
 
+function valorVazio(valor) {
+  if (valor === null || valor === undefined) return true;
+
+  const texto = String(valor).trim();
+
+  if (!texto) return true;
+
+  return [
+    "-",
+    "--",
+    "na",
+    "n/a",
+    "não informado",
+    "nao informado",
+    "sem informação",
+    "sem informacao",
+  ].includes(texto.toLowerCase());
+}
+
+function correspondeFiltroQualidade(item, filtroQualidade) {
+  if (!filtroQualidade) return true;
+
+  const campo = filtroQualidade?.campo;
+
+  if (!campo) return true;
+
+  return valorVazio(item?.[campo]);
+}
+
 export default function usePesquisa(
   ppcis = [],
   filtro = "",
@@ -21,7 +50,8 @@ export default function usePesquisa(
   filtroStatus = "",
   filtroSituacao = "",
   filtroResponsavel = "",
-  filtroUnidade = ""
+  filtroUnidade = "",
+  filtroQualidade = null
 ) {
   return useMemo(() => {
     const termoBusca = filtro.trim().toLowerCase();
@@ -68,6 +98,10 @@ export default function usePesquisa(
         return false;
       }
 
+      if (!correspondeFiltroQualidade(item, filtroQualidade)) {
+        return false;
+      }
+
       /* ==========================================
          FILTRO DE SITUAÇÃO / VENCIMENTO
       ========================================== */
@@ -103,5 +137,6 @@ export default function usePesquisa(
     filtroSituacao,
     filtroResponsavel,
     filtroUnidade,
+    filtroQualidade,
   ]);
 }

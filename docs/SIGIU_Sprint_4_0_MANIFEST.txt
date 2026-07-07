@@ -1,0 +1,4 @@
+docs/SIGIU_CHECKPOINT_v3_4_1.md
+docs/SIGIU_Sprint_4_0_CHECKPOINT.md
+src/components/Cards/CardsPPCI.jsx
+src/hooks/useFiltrosPainel.js

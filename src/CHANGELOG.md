@@ -13,3 +13,10 @@
 
 -   RC2 -- Central de Gestão do PPCI.
 -   RC3 -- Edição da planilha Google Sheets.
+
+## v5.2.0 RC1 - Filtro por pendência de qualidade
+
+- Incluído filtro operacional a partir da seção Saúde da Base de Dados.
+- Cada pendência pode filtrar a listagem principal de PPCIs.
+- O filtro de pendência aparece nos chips de filtros ativos.
+- O estado vazio filtrado reconhece o filtro de pendência.

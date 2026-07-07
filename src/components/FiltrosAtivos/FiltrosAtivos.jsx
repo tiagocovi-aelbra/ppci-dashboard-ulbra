@@ -1,10 +1,17 @@
 /* =========================================================
-   RELEASE........: v3.2.0 RC1
+   RELEASE........: v5.2.0 RC1
    ARQUIVO........: src/components/FiltrosAtivos/FiltrosAtivos.jsx
-   DESCRIÇÃO......: Barra compacta de filtros ativos do Painel PPCI
+   DESCRIÇÃO......: Barra compacta de filtros ativos do Painel PPCI,
+                    incluindo pendência de qualidade cadastral.
 ========================================================= */
 
 import React from "react";
+
+function rotuloValor(valor) {
+  if (!valor) return "";
+  if (typeof valor === "object") return valor.label ?? valor.id ?? "Filtro aplicado";
+  return valor;
+}
 
 export default function FiltrosAtivos({
   filtro,
@@ -13,12 +20,14 @@ export default function FiltrosAtivos({
   filtroCategoria,
   filtroResponsavel,
   filtroUnidade,
+  filtroQualidade,
   setFiltro,
   setFiltroStatus,
   setFiltroSituacao,
   setFiltroCategoria,
   setFiltroResponsavel,
   setFiltroUnidade,
+  setFiltroQualidade,
   onLimpar,
 }) {
   const filtros = [
@@ -58,7 +67,18 @@ export default function FiltrosAtivos({
       valor: filtroUnidade,
       limpar: () => setFiltroUnidade(""),
     },
-  ].filter((item) => item.valor);
+    {
+      id: "qualidade",
+      rotulo: "Pendência",
+      valor: filtroQualidade,
+      limpar: () => setFiltroQualidade(null),
+    },
+  ]
+    .map((item) => ({
+      ...item,
+      valorFormatado: rotuloValor(item.valor),
+    }))
+    .filter((item) => item.valorFormatado);
 
   if (!filtros.length) return null;
 
@@ -79,7 +99,7 @@ export default function FiltrosAtivos({
             title={`Remover filtro: ${item.rotulo}`}
           >
             <span className="filtro-ativo-rotulo">{item.rotulo}</span>
-            <span className="filtro-ativo-valor">{item.valor}</span>
+            <span className="filtro-ativo-valor">{item.valorFormatado}</span>
             <span className="filtro-ativo-remover" aria-hidden="true">
               ×
             </span>

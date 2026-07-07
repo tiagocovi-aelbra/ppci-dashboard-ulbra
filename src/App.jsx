@@ -1,7 +1,9 @@
 /* =====================================================
-   RELEASE........: v3.3.0 RC1
+   RELEASE........: v5.7.0 RC1
    ARQUIVO........: src/App.jsx
-   DESCRIÇÃO......: Componente principal com cabeçalho resumido na listagem de PPCIs
+   DESCRIÇÃO......: Componente principal com preferências operacionais,
+                    estado vazio aprimorado, saúde da base operacional
+                    e qualidade gerencial da base cadastral
 ===================================================== */
 
 /* =====================================================
@@ -24,6 +26,7 @@ import usePPCI from "./hooks/usePPCI";
 import useFiltrosPainel from "./hooks/useFiltrosPainel";
 import usePainelInterface from "./hooks/usePainelInterface";
 import usePainelPPCIDados from "./hooks/usePainelPPCIDados";
+import useQualidadeDados from "./hooks/useQualidadeDados";
 
 /* -----------------------------------------------------
    UTILS
@@ -46,6 +49,8 @@ import DashboardExecutivo from "./components/Dashboard/DashboardExecutivo";
 import PainelAnalises from "./components/Analises/PainelAnalises";
 import Toolbar from "./components/Toolbar/Toolbar";
 import FiltrosAtivos from "./components/FiltrosAtivos";
+import PreferenciasPainel from "./components/Preferencias";
+import QualidadeDados from "./components/QualidadeDados";
 import CardsPPCI from "./components/Cards/CardsPPCI";
 import ModalPPCI from "./components/Modal/ModalPPCI";
 
@@ -85,10 +90,18 @@ function App() {
     setFiltroResponsavel,
     filtroUnidade,
     setFiltroUnidade,
+    filtroQualidade,
+    setFiltroQualidade,
     ordenacao,
     setOrdenacao,
     aplicarFiltro,
     limparTodosFiltros,
+    salvarVisaoAtual,
+    restaurarVisaoSalva,
+    limparPreferenciasLocais,
+    preferenciasVersao,
+    haVisaoSalva,
+    dataVisaoSalva,
   } = filtrosPainel;
 
   /* =====================================================
@@ -112,6 +125,8 @@ function App() {
     ppcis,
     filtrosPainel
   );
+
+  const qualidadeDados = useQualidadeDados(ppcis);
 
   const {
     statusOrdenados,
@@ -149,6 +164,17 @@ function App() {
 
       {deveExibirConteudo && (
         <>
+          <DashboardExecutivo
+            vencidos={vencidos}
+            criticos={criticos}
+            regulares={regulares}
+            semData={semData}
+            maiorSituacao={maiorSituacao}
+            filtroSituacao={filtroSituacao}
+            setFiltroSituacao={setFiltroSituacao}
+            mediaConclusao={mediaConclusao}
+          />
+
           <PainelAnalises
             mostrarAnalise={mostrarAnalise}
             setMostrarAnalise={setMostrarAnalise}
@@ -165,15 +191,11 @@ function App() {
             aplicarFiltroRapido={aplicarFiltro}
           />
 
-          <DashboardExecutivo
-            vencidos={vencidos}
-            criticos={criticos}
-            regulares={regulares}
-            semData={semData}
-            maiorSituacao={maiorSituacao}
-            filtroSituacao={filtroSituacao}
-            setFiltroSituacao={setFiltroSituacao}
-            mediaConclusao={mediaConclusao}
+          <QualidadeDados
+            qualidade={qualidadeDados}
+            filtroQualidade={filtroQualidade}
+            onFiltrarPendencia={setFiltroQualidade}
+            onSelecionarPPCI={setPpciSelecionado}
           />
 
           <Toolbar
@@ -193,25 +215,55 @@ function App() {
             filtroCategoria={filtroCategoria}
             filtroResponsavel={filtroResponsavel}
             filtroUnidade={filtroUnidade}
+            filtroQualidade={filtroQualidade}
             setFiltro={setFiltro}
             setFiltroStatus={setFiltroStatus}
             setFiltroSituacao={setFiltroSituacao}
             setFiltroCategoria={setFiltroCategoria}
             setFiltroResponsavel={setFiltroResponsavel}
             setFiltroUnidade={setFiltroUnidade}
+            setFiltroQualidade={setFiltroQualidade}
             onLimpar={limparTodosFiltros}
+          />
+
+          <PreferenciasPainel
+            haVisaoSalva={haVisaoSalva}
+            dataVisaoSalva={dataVisaoSalva}
+            onSalvarVisao={salvarVisaoAtual}
+            onRestaurarVisao={restaurarVisaoSalva}
+            onLimparPreferencias={limparPreferenciasLocais}
           />
 
           <CardsPPCI
             ppcis={ppcisFiltrados}
             totalGeral={ppcis.length}
             ordenacao={ordenacao}
+            filtrosAtivos={{
+              busca: filtro,
+              status: filtroStatus,
+              situacao: filtroSituacao,
+              categoria: filtroCategoria,
+              responsavel: filtroResponsavel,
+              unidade: filtroUnidade,
+              qualidade: filtroQualidade,
+            }}
+            acoesFiltros={{
+              setFiltro,
+              setFiltroStatus,
+              setFiltroSituacao,
+              setFiltroCategoria,
+              setFiltroResponsavel,
+              setFiltroUnidade,
+              setFiltroQualidade,
+              onLimpar: limparTodosFiltros,
+            }}
             setPpciSelecionado={setPpciSelecionado}
             formatarData={formatarData}
             textoOuPadrao={textoOuPadrao}
             obterClasseVencimento={obterClasseVencimento}
             obterDiasParaVencer={obterDiasParaVencer}
             aplicarFiltroRapido={aplicarFiltro}
+            preferenciasVersao={preferenciasVersao}
           />
 
           <ModalPPCI

@@ -1,7 +1,8 @@
 /* =====================================================
-   RELEASE........: v2.3.0 RC1
+   RELEASE........: v5.2.0 RC1
    ARQUIVO........: src/hooks/usePainelPPCIDados.js
-   DESCRIÇÃO......: Centraliza os dados derivados do Painel PPCI
+   DESCRIÇÃO......: Centraliza os dados derivados do Painel PPCI,
+                    incluindo filtro por pendência de qualidade cadastral
 ===================================================== */
 
 import { useMemo } from "react";
@@ -18,6 +19,7 @@ export default function usePainelPPCIDados(ppcis = [], filtrosPainel = {}) {
     filtroSituacao = "",
     filtroResponsavel = "",
     filtroUnidade = "",
+    filtroQualidade = null,
     ordenacao = "prioridade",
   } = filtrosPainel;
 
@@ -32,7 +34,8 @@ export default function usePainelPPCIDados(ppcis = [], filtrosPainel = {}) {
     filtroStatus,
     filtroSituacao,
     filtroResponsavel,
-    filtroUnidade
+    filtroUnidade,
+    filtroQualidade
   );
 
   const categoriasFiltro = useMemo(

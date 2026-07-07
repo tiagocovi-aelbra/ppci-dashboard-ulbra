@@ -1,3 +1,9 @@
+/* =====================================================
+   RELEASE........: v5.2.0 RC1
+   ARQUIVO........: src/hooks/useFiltros.js
+   DESCRIÇÃO......: Ações utilitárias para filtros rápidos e limpeza geral
+===================================================== */
+
 export function limparFiltros({
   setFiltro,
   setFiltroStatus,
@@ -5,18 +11,18 @@ export function limparFiltros({
   setFiltroCategoria,
   setFiltroResponsavel,
   setFiltroUnidade,
-  setOrdenacao
+  setFiltroQualidade,
+  setOrdenacao,
 }) {
+  setFiltro?.("");
+  setFiltroStatus?.("");
+  setFiltroSituacao?.("");
+  setFiltroCategoria?.("");
+  setFiltroResponsavel?.("");
+  setFiltroUnidade?.("");
+  setFiltroQualidade?.(null);
 
-  setFiltro("");
-  setFiltroStatus("");
-  setFiltroSituacao("");
-  setFiltroCategoria("");
-  setFiltroResponsavel("");
-  setFiltroUnidade("");
-
-  setOrdenacao("prioridade");
-
+  setOrdenacao?.("prioridade");
 }
 
 export function aplicarFiltroRapido(
@@ -26,14 +32,13 @@ export function aplicarFiltroRapido(
     setFiltroCategoria,
     setFiltroStatus,
     setFiltroResponsavel,
-    setFiltroUnidade
+    setFiltroUnidade,
+    setFiltroQualidade,
   }
 ) {
-
   if (!valor) return;
 
   switch (tipo) {
-
     case "categoria":
       setFiltroCategoria?.(valor);
       break;
@@ -50,9 +55,11 @@ export function aplicarFiltroRapido(
       setFiltroUnidade?.(valor);
       break;
 
-    default:
+    case "qualidade":
+      setFiltroQualidade?.(valor);
       break;
 
+    default:
+      break;
   }
-
 }
